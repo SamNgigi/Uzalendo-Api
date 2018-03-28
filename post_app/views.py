@@ -6,7 +6,7 @@ from .models import Post
 def post_detail_view(request, id=1):
     obj = Post.objects.get(id=id)
     content = {
-        "objects": obj,
+        "object": obj,
     }
     return render(request, 'posts/post_detail.html', content)
 
