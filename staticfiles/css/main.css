@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Lobster|Sacramento|Open+Sans|Quicksand|Raleway|Lobster+Two');
+
+body{
+  background-color: #fafafa;
+}
+
+h1 {
+  /*font-family: 'Julius Sans One', sans-serif;*/
+  /*font-family: 'Open Sans', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
+}
+
+h2 {
+  font-family: 'Quicksand', sans-serif;
+}

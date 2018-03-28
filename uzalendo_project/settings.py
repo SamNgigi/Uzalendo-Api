@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'post_app',
     'corsheaders',
     'bootstrap4',
     'rest_framework',
