@@ -1,20 +1,18 @@
-from django.shortcuts import render
+# from django.shortcuts import render
+from django.views.generic import DetailView, ListView
+
 from .models import Post
 # Create your views here.
 
 
-def post_detail_view(request, id=1):
-    obj = Post.objects.get(id=id)
-    content = {
-        "object": obj,
-    }
-    return render(request, 'posts/post_detail.html', content)
-
-
-def post_list_view(request):
+class PostDetailView(DetailView):
+    template_name = 'posts/post_detail.html'
     queryset = Post.objects.all()
 
-    content = {
-        "object_list": queryset,
-    }
-    return render(request, 'posts/post_list.html', content)
+    def get_objects(self):
+        return Post.objects.get(id=1)
+
+
+class PostListView(ListView):
+    template_name = 'posts/post_list.html'
+    queryset = Post.objects.all()

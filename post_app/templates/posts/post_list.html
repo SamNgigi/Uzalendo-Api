@@ -1,7 +1,6 @@
-<p>Working</p>
-<ul>
-  {% for item in object_list  %}
-      <li>{{item.content}}</li>
-  {% endfor %}
-
-</ul>
+{% for item in object_list  %}
+  <p>{{item.content}}</p>
+  <p>{{item.user}}</p>
+  <p>{{item.timestamp}}</p>
+  <p>{{item.timestamp|timesince}} ago</p>
+{% endfor %}
