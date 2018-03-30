@@ -42,8 +42,7 @@ class PostUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
 class PostCreateView(FormUserNeededMixin, CreateView):
     form_class = PostModelForm
     template_name = 'post_app/post_create.html'
-    #
-    # success_url = reverse_lazy("posts:post_list")
+    success_url = reverse_lazy("posts:post_list")
 
 
 class PostDetailView(DetailView):

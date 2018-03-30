@@ -6,10 +6,10 @@
     <img class="mr-3" src="{% static 'imgs/user.ico' %}" alt="Generic placeholder image" style="height:70px; width:70px;">
     <div class="media-body">
       <span class="badge badge-primary badge-pill">{{item.pk}}</span>
-      <h5 class="mt-0 mb-1">List-based media object</h5>
+      <h5 class="mt-0 mb-1">{{item.user}}</h5>
       <p>{{item.content}}</p>
       <small>
-        {{item.user}} | {{item.timestamp}} | {{item.timestamp | timesince}} ago | <a href="{% url 'posts:post_detail' pk=item.pk %}">View</a>
+        | {{item.timestamp}} | {{item.timestamp | timesince}} ago | <a href="{% url 'posts:post_detail' pk=item.pk %}">View</a>
       </small>
     </div>
     <a class="mr-2" href="{% url 'posts:post_update' pk=item.pk %}">Edit </a>

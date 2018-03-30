@@ -3,6 +3,19 @@ from .models import Post
 
 
 class PostModelForm(forms.ModelForm):
+    """
+    Adding bootstrap the hard way to a form. This give us control
+    over the form widgets and label.
+
+    content = forms.CharField(
+    label='',
+    widget=forms.Textarea(
+        attrs={
+            'placeholder': "Enter post here",
+            "class": "form-control"
+        }
+    ))
+    """
     class Meta:
         model = Post
         fields = [
