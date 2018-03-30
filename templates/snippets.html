@@ -8,10 +8,9 @@
       <span class="badge badge-primary badge-pill">{{item.pk}}</span>
       <h5 class="mt-0 mb-1">List-based media object</h5>
       <p>{{item.content}}</p>
-      <p></p>
-      <p></p>
-      <p></p> <br>
-      <small>{{item.user}} | {{item.timestamp}} | {{item.timestamp | timesince}} </small>
+      <small>
+        {{item.user}} | {{item.timestamp}} | {{item.timestamp | timesince}} ago | <a href="{% url 'posts:post_detail' pk=item.pk %}">View</a>
+      </small>
     </div>
     <a class="mr-2" href="{% url 'posts:post_update' pk=item.pk %}">Edit </a>
     <a href="{% url 'posts:post_delete' pk=item.pk %}"> Delete</a>
