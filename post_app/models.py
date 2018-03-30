@@ -4,6 +4,9 @@ from django.db import models
 
 # Importing validators
 from .validators import validate_content
+
+# Default profile image
+
 # Create your models here.
 
 

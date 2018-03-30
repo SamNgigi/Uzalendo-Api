@@ -1,0 +1,29 @@
+{% load static %}
+{% for item in list %}
+
+<ul class="list-unstyled list-group">
+  <li class="media list-group-item d-flex justify-content-between align-items-center">
+    <img class="mr-3" src="{% static 'imgs/user.ico' %}" alt="Generic placeholder image" style="height:70px; width:70px;">
+    <div class="media-body">
+      <span class="badge badge-primary badge-pill">{{item.pk}}</span>
+      <h5 class="mt-0 mb-1">List-based media object</h5>
+      <p>{{item.content}}</p>
+      <p></p>
+      <p></p>
+      <p></p> <br>
+      <small>{{item.user}} | {{item.timestamp}} | {{item.timestamp | timesince}} </small>
+    </div>
+    <a class="mr-2" href="{% url 'posts:post_update' pk=item.pk %}">Edit </a>
+    <a href="{% url 'posts:post_delete' pk=item.pk %}"> Delete</a>
+  </li>
+</ul>
+{% empty %}
+  <!-- Checking if the search request is coming through. -->
+  {% if request.GET.q %}
+  <!-- Returns below if no posts matching query are found -->
+    <p>No posts found.</p>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+
+{% endfor %}
