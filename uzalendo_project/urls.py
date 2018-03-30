@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import home
+# from .views import home. We make PostListView our home page.
+from post_app.views import PostListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home, name='home'),
+    url(r'^$', PostListView.as_view(), name='home'),
+    # url(r'^$', home, name='home'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
 ]
 
