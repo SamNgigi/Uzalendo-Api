@@ -1,3 +1,6 @@
+<p>
+  <a href="{% url 'posts:create_post' %}">Create New Post</a>
+</p>
 {% for item in object_list  %}
   <p>{{item.pk}}</p>
   <p>{{item.content}}</p>
@@ -5,8 +8,8 @@
   <p>{{item.timestamp}}</p>
   <p>{{item.timestamp|timesince}} ago</p> <br>
   <p>
-    <a href="{% url 'post:post_update' pk=item.pk %}"><span>Edit</span></a>
-    <a href="{% url 'posts:post_delete' pk=object.pk %}"><span>Delete</span></a>
+    <a href="{% url 'posts:post_update' pk=item.pk %}"><span>Edit</span></a> |
+    <a href="{% url 'posts:post_delete' pk=item.pk %}"><span>Delete</span></a>
   </p>
 {% empty %}
     <p>No posts yet.</p>

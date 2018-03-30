@@ -5,6 +5,7 @@
       {% csrf_token %}
       <p>Are you sure want to delete post - "{{object}}"?</p>
       <input class="btn btn-danger" type="submit" value="Confirm">
+      <a class="btn btn-primary" href="{% url 'posts:post_list' %}">Nope</a>
     </form>
   </div>
 {% endblock %}
