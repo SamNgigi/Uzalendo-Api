@@ -1,6 +1,8 @@
-# from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+# from django.shortcuts import render, redirect
+from django.views.generic import DetailView, ListView, CreateView
 
+
+from .forms import PostModelForm
 from .models import Post
 # Create your views here.
 
@@ -12,6 +14,17 @@ inbuilt out of the box templates for the generic views.
 By simply renaming our app template folder and template files to
 match django's we will not have to define template name in our views.
 """
+
+
+class PostCreateView(CreateView):
+    form_class = PostModelForm
+    template_name = 'post_app/post_create.html'
+    success_url = '/posts'
+
+    # Validating the form
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(PostCreateView, self).form_valid(form)
 
 
 class PostDetailView(DetailView):
@@ -38,5 +51,5 @@ class PostListView(ListView):
         """
         content = super(PostListView, self).get_context_data(*args, **kwargs)
         content["another_list"] = Post.objects.all()
-        print(content)
+        # print(content)
         return content

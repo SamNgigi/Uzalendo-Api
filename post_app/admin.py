@@ -6,7 +6,10 @@ from . models import Post
 
 
 class PostModelAdmin(admin.ModelAdmin):
-    form = PostModelForm
+    # form = PostModelForm
+
+    class Meta:
+        model = Post
 
 
 admin.site.register(Post, PostModelAdmin)

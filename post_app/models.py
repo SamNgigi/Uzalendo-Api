@@ -13,6 +13,9 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         """
         What this function does is define a string representation of
