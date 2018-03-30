@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts_app',
     'post_app',
     'widget_tweaks',
     'corsheaders',
