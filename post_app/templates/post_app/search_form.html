@@ -1,5 +1,7 @@
 <!-- {{request.GET.q}} is so that the searched term remains on the form while on result page. -->
 <form class="form-inline" method="GET" action="{% url 'posts:post_list' %}">
-  <input class="form-control" type="text" name="q" value="{{request.GET.q}}" placeholder="Search">
-  <input class="btn btn-outline-primary ml-1" type="submit" value="Search">
+  <div class="form-group">
+    <input class="form-control" type="text" name="q" value="{{request.GET.q}}" placeholder="Search">
+    <input class="btn btn-outline-primary ml-1" type="submit" value="Search">
+  </div>
 </form>
