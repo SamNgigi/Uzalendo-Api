@@ -1,3 +1,4 @@
+from django.utils.timesince import timesince
 from rest_framework import serializers
 
 from accounts_app.api.serializers import UserDisplaySerializer
@@ -13,10 +14,21 @@ class PostModelSerializer(serializers.ModelSerializer):
     user in post to the AUTH_USER_MODEL.
     """
     user = UserDisplaySerializer(read_only=True)  # Write only
+    date_display = serializers.SerializerMethodField()
+    timesince = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = [
             'user',
-            'content'
+            'content',
+            'timestamp',
+            'date_display',
+            'timesince',
         ]
+
+    def get_date_display(self, object):
+        return object.timestamp.strftime("%b %d  %Y | %I:%M %p")
+
+    def get_timesince(self, object):
+        return timesince(object.timestamp) + " ago"
