@@ -23,8 +23,12 @@ class PostCreateView(CreateView):
 
     # Validating the form
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(PostCreateView, self).form_valid(form)
+        if self.request.user.is_authenticated():
+            form.instance.user = self.request.user
+            return super(PostCreateView, self).form_valid(form)
+        else:
+            # Prevents unauthenticated user from posting
+            return self.form_invalid(form)
 
 
 class PostDetailView(DetailView):
