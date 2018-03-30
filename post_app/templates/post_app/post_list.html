@@ -7,13 +7,13 @@
 <!-- Post form -->
   {% if not request.GET.q %}
     <div class="row mb-4">
-      {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' %}
+      {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' form_id='post-form' %}
     </div>
   {% endif %}
   <hr>
 <!-- Ajax experiment -->
 <div id="post-container">
-  
+
 </div>
 <!-- Links to Api -->
   <p>

@@ -17,11 +17,11 @@ function getParameterByName(name, url) {
 // However with an external script file we have to write out the url the old fashion way >> url:"/posts/api/"
 
 $(document).ready(function() {
-  console.log("Working");
+  // console.log("Working");
 
   // Stores the query url in query
   var query = getParameterByName('q')
-  console.log(query);
+  // console.log(query);
 
   var postList = []
   function parsePosts() {
@@ -31,9 +31,9 @@ $(document).ready(function() {
       } else {
         // Posts exist therefore parse and display them
         $.each(postList, function(key, value){
-          console.log(key);
-          console.log(value.user);
-          console.log(value.content);
+          // console.log(key);
+          // console.log(value.user);
+          // console.log(value.content);
           // Storing data from ajax call.
           var postKey = value.key;
           var postUser = value.user;
@@ -47,25 +47,38 @@ $(document).ready(function() {
   }
 
 
-  $.ajax({
-    url:"/posts/api/",
-    // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
-    data:{
-      "q": query
-    },
-    method:"GET",
-    success: function(data) {
-      // Loging if call is successful
-        console.log(data);
-      // Storing our data in our empty postList
-        postList = data
-      // Parsing the data from postList
-        parsePosts()
+  function fetchPosts() {
+    console.log('fetching..');
+    $.ajax({
+      url:"/posts/api/",
+      // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
+      data:{
+        "q": query
+      },
+      method:"GET",
+      success: function(data) {
+        // Loging if call is successful
+          // console.log(data);
+        // Storing our data in our empty postList
+          postList = data
+        // Parsing the data from postList
+          parsePosts()
 
-    },
-    error: function(data){
-      console.log("error");
-      console.log(data);
-    }
-  })
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    })
+  }
+  // fetchPosts()
+
+  $("#post-form").submit(function(event){
+    event.preventDefault()
+    var submited = $(this)
+    console.log(event);
+    console.log(submited);
+    fetchPosts()
+  });
+
 });
