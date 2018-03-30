@@ -24,7 +24,7 @@ from .views import home
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home, name='home'),
-    url(r'^posts/', include('post_app.urls')),
+    url(r'^posts/', include('post_app.urls', namespace='posts')),
 ]
 
 if settings.DEBUG:
