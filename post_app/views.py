@@ -17,11 +17,14 @@ match django's we will not have to define template name in our views.
 class PostDetailView(DetailView):
     # template_name = 'posts/post_detail.html'
     queryset = Post.objects.all()
+    """
+    In class based views we actually do not need the function below.
 
     def get_objects(self):
         print(self.kwargs)
         pk = self.kwargs.get("pk")
         return Post.objects.get(pk)
+    """
 
 
 class PostListView(ListView):
