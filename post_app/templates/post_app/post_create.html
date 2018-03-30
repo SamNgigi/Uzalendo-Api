@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{block.super}} | Create {% endblock %}
 {% block content %}
-  {% include "post_app/forms.html" with form=form btn_title='Post' %}
+
+      {% include "post_app/forms.html" with form=form btn_title='Post' %}
+
 {% endblock %}

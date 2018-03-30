@@ -36,7 +36,6 @@ class PostUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     queryset = Post.objects.all()
     form_class = PostModelForm
     template_name = 'post_app/post_update.html'
-    #
     # success_url = reverse_lazy("posts:post_list")
 
 
@@ -89,7 +88,10 @@ class PostListView(ListView):
         using the ListView generic class.
         """
         content = super(PostListView, self).get_context_data(*args, **kwargs)
-        content["another_list"] = Post.objects.all()
+        # This renders the create post form on the PostListView view
+        content['create_form'] = PostModelForm
+        # We redirect to create_post view function once post is submited
+        content['create_url'] = reverse_lazy('posts:create_post')
         # print(content)
         return content
 

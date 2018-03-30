@@ -2,6 +2,11 @@
 
 {% block content %}
   {% include "post_app/search_form.html" %}<br>
+  {% if not request.GET.q %}
+    <div class="row mb-4">
+      {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' %}
+    </div>
+  {% endif %}
   <p>
     <a href="{% url 'home' %}">Home</a> |
     <a href="{% url 'posts:create_post' %}">Create New Post</a> |
