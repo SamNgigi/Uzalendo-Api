@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^$', PostListView.as_view(), name='home'),
     # url(r'^$', home, name='home'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
+    url(r'^posts/api/', include('post_app.api.urls', namespace='posts_api')),
 ]
 
 if settings.DEBUG:

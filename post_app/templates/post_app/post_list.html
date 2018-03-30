@@ -11,6 +11,10 @@
     </div>
   {% endif %}
   <hr>
+<!-- Links to Api -->
+  <p>
+    <a href="{% url 'posts_api:post_list_api' %}">Post List Api</a>
+  </p>
 <!-- List of posts -->
   {% include "snippets.html" with list=object_list %}
 {% endblock %}
