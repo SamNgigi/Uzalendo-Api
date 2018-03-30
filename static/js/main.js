@@ -14,27 +14,23 @@ function getParameterByName(name, url) {
 
 // Note:
 // "{% url 'posts_api:post_list_api' %}" would work if we working with a block script. i.e in base.html
-// However with an external script file we have to write out the url the old fashion way
+// However with an external script file we have to write out the url the old fashion way >> url:"/posts/api/"
 
 $(document).ready(function() {
   console.log("Working");
 
+  // Stores the query url in query
   var query = getParameterByName('q')
-
   console.log(query);
 
-  $.ajax({
-    url:"/posts/api/",
-    // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
-    data:{
-      "q": query
-    },
-    method:"GET",
-    success: function(data) {
-      // Loging if call is successful
-        console.log(data);
-        // Loging data in key value pair
-        $.each(data, function(key, value){
+  var postList = []
+  function parsePosts() {
+    // Loging data in key value pair and storing the data to postList
+      if (postList === 0){
+        $('#post-container').text("No posts currently found")
+      } else {
+        // Posts exist therefore parse and display them
+        $.each(postList, function(key, value){
           console.log(key);
           console.log(value.user);
           console.log(value.content);
@@ -47,6 +43,25 @@ $(document).ready(function() {
             "<p>"+ "-" + postContent + "<br/>" + postUser.username + " | " + "<a href='#'>View</a>" +"</p>" + "<br/>" + "<hr>"
           )
         })
+      }
+  }
+
+
+  $.ajax({
+    url:"/posts/api/",
+    // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
+    data:{
+      "q": query
+    },
+    method:"GET",
+    success: function(data) {
+      // Loging if call is successful
+        console.log(data);
+      // Storing our data in our empty postList
+        postList = data
+      // Parsing the data from postList
+        parsePosts()
+
     },
     error: function(data){
       console.log("error");
