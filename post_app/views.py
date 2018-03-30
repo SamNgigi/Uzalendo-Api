@@ -1,9 +1,7 @@
 # from django.shortcuts import render, redirect
-from django import forms
-from django.forms.utils import ErrorList
 from django.views.generic import DetailView, ListView, CreateView
 
-
+from .custom_mixins import FormUserNeededMixin
 from .forms import PostModelForm
 from .models import Post
 # Create your views here.
@@ -18,21 +16,10 @@ match django's we will not have to define template name in our views.
 """
 
 
-class PostCreateView(CreateView):
+class PostCreateView(FormUserNeededMixin, CreateView):
     form_class = PostModelForm
     template_name = 'post_app/post_create.html'
     success_url = '/posts'
-
-    # Validating the form
-    def form_valid(self, form):
-        if self.request.user.is_authenticated():
-            form.instance.user = self.request.user
-            return super(PostCreateView, self).form_valid(form)
-        else:
-            # Prevents unauthenticated user from posting
-            form._errors[forms.forms.NON_FIELD_ERRORS] = ErrorList(
-                ["User must be logged in to continue."])
-            return self.form_invalid(form)
 
 
 class PostDetailView(DetailView):
