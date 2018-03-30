@@ -1,6 +1,7 @@
 # from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.db.models import Q
 from django.views.generic import (
     DetailView,
     ListView,
@@ -68,8 +69,18 @@ class PostListView(ListView):
         # It returns an empty query dictionary. i.e <QueryDict:{}>
         print(self.request.GET)
         query = self.request.GET.get("q", None)
+        """
+        Below we allow for a more robust search using the Q
+        lookup that allows us to search multiple models with the
+        '|' indicating the 'or' operation.
+
+        We import Q from django.db.models.
+        """
         if query is not None:
-            all_posts = all_posts.filter(content__icontains=query)
+            all_posts = all_posts.filter(
+                Q(content__icontains=query) |
+                Q(user__username__icontains=query)
+            )
         return all_posts
 
     def get_context_data(self, *args, **kwargs):
