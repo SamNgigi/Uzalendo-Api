@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.urls import reverse
 from django.db import models
 
 # Importing validators
@@ -40,3 +41,7 @@ class Post(models.Model):
                 ")
         return super(Post, self).clean(*args, **kwargs)
     """
+    # We define our absolute url here
+
+    def get_absolute_url(self):
+        return reverse("posts:post_detail", kwargs={"pk": self.pk})

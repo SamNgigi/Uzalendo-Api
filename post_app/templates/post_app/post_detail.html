@@ -3,3 +3,8 @@
 <p>{{object.user}}</p>
 <p>{{object.timestamp}}</p>
 <p>{{object.timestamp|timesince}}</p>
+<p>
+  <a href="{% url 'posts:post_list' %}"><span>Post Lists</span></a> |
+  <a href="{% url 'posts:post_update' pk=object.pk %}"><span>Edit Post</span></a> |
+  <a href="{% url 'posts:post_delete' pk=object.pk %}"><span>Delete</span></a>
+</p>

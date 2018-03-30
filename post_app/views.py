@@ -35,13 +35,15 @@ class PostUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     queryset = Post.objects.all()
     form_class = PostModelForm
     template_name = 'post_app/post_update.html'
-    success_url = reverse_lazy("posts:post_list")
+    #
+    # success_url = reverse_lazy("posts:post_list")
 
 
 class PostCreateView(FormUserNeededMixin, CreateView):
     form_class = PostModelForm
     template_name = 'post_app/post_create.html'
-    success_url = reverse_lazy("posts:post_list")
+    #
+    # success_url = reverse_lazy("posts:post_list")
 
 
 class PostDetailView(DetailView):
