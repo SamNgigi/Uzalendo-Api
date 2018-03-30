@@ -14,7 +14,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-timestamp']
+        ordering = ['-updated']
 
     def __str__(self):
         """

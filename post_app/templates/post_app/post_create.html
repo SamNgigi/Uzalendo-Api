@@ -1,11 +1,1 @@
-{% extends "home.html" %}
-{% load bootstrap4 %}
-{% block content %}
-  <div class="container">
-    <form class="form" method='POST' action="">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <input class="btn btn-default" type="submit" value="Post" >
-    </form>
-  </div>
-{% endblock %}
+{% include "post_app/forms.html" with form=form btn_title='Post' %}

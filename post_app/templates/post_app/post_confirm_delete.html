@@ -1,0 +1,10 @@
+{% extends "home.html" %}
+{% block content %}
+  <div class="container">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <p>Are you sure want to delete post - "{{object}}"?</p>
+      <input class="btn btn-danger" type="submit" value="Confirm">
+    </form>
+  </div>
+{% endblock %}
