@@ -1,4 +1,6 @@
 # from django.shortcuts import render, redirect
+from django import forms
+from django.forms.utils import ErrorList
 from django.views.generic import DetailView, ListView, CreateView
 
 
@@ -28,6 +30,8 @@ class PostCreateView(CreateView):
             return super(PostCreateView, self).form_valid(form)
         else:
             # Prevents unauthenticated user from posting
+            form._errors[forms.forms.NON_FIELD_ERRORS] = ErrorList(
+                ["User must be logged in to continue."])
             return self.form_invalid(form)
 
 
