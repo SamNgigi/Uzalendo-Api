@@ -3,13 +3,13 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import PostDetailView, PostListView, PostCreateView
+from .views import post_detail_view, post_list_view, post_create_view
 
 urlpatterns = [
     # .as_view() makes our class based views into functions
-    url(r'^(?P<pk>\d+)/$', PostDetailView.as_view(), name='post_detail'),
-    url(r'^$', PostListView.as_view(), name='post_list'),
-    url(r'^create/$', PostCreateView.as_view(),
+    url(r'^(?P<pk>\d+)/$', post_detail_view, name='post_detail'),
+    url(r'^$', post_list_view, name='post_list'),
+    url(r'^create/$', post_create_view,
         name='create_post'),
 ]
 

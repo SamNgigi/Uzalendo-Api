@@ -1,5 +1,4 @@
-# from django.shortcuts import render, redirect
-from django.views.generic import DetailView, ListView, CreateView
+from django.shortcuts import render, redirect
 
 
 from .forms import PostModelForm
@@ -7,49 +6,31 @@ from .models import Post
 # Create your views here.
 
 
-"""
-In class based views we can use our own templates or django
-inbuilt out of the box templates for the generic views.
-
-By simply renaming our app template folder and template files to
-match django's we will not have to define template name in our views.
-"""
-
-
-class PostCreateView(CreateView):
-    form_class = PostModelForm
-    template_name = 'post_app/post_create.html'
-    success_url = '/posts'
-
-    # Validating the form
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(PostCreateView, self).form_valid(form)
+def post_create_view(request):
+    form = PostModelForm(request.POST or None)
+    content = {
+        "form": form
+    }
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.user = request.user
+        instance.save()
+        return redirect("post_list")
+    return render(request, 'post_app/post_create.html', content)
 
 
-class PostDetailView(DetailView):
-    # template_name = 'posts/post_detail.html'
-    queryset = Post.objects.all()
-    """
-    In class based views we actually do not need the function below.
-
-    def get_objects(self):
-        print(self.kwargs)
-        pk = self.kwargs.get("pk")
-        return Post.objects.get(pk)
-    """
+def post_detail_view(request, id=1):
+    obj = Post.objects.get(id=id)
+    content = {
+        "object": obj,
+    }
+    return render(request, 'post_app/post_detail.html', content)
 
 
-class PostListView(ListView):
-    # template_name = 'posts/post_list.html'
+def post_list_view(request):
     queryset = Post.objects.all()
 
-    def get_context_data(self, *args, **kwargs):
-        """
-        This is generally how our content is got originally
-        using the ListView generic class.
-        """
-        content = super(PostListView, self).get_context_data(*args, **kwargs)
-        content["another_list"] = Post.objects.all()
-        # print(content)
-        return content
+    content = {
+        "object_list": queryset,
+    }
+    return render(request, 'post_app/post_list.html', content)

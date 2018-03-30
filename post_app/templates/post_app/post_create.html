@@ -1,8 +1,11 @@
 {% extends "home.html" %}
+{% load bootstrap4 %}
 {% block content %}
-  <form class="form" method='POST' action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-default" type="submit" value="Post" >
-  </form>
+  <div class="container">
+    <form class="form" method='POST' action="">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <input class="btn btn-default" type="submit" value="Post" >
+    </form>
+  </div>
 {% endblock %}
