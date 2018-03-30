@@ -61,7 +61,16 @@ class PostDetailView(DetailView):
 
 class PostListView(ListView):
     # template_name = 'posts/post_list.html'
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
+    def get_queryset(self, *args, **kwargs):
+        all_posts = Post.objects.all()
+        # We want to create a request parameter. We test that with this print
+        # It returns an empty query dictionary. i.e <QueryDict:{}>
+        print(self.request.GET)
+        query = self.request.GET.get("q", None)
+        if query is not None:
+            all_posts = all_posts.filter(content__icontains=query)
+        return all_posts
 
     def get_context_data(self, *args, **kwargs):
         """

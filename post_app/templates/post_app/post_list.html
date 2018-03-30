@@ -13,5 +13,9 @@
     <a href="{% url 'posts:post_delete' pk=item.pk %}"><span>Delete</span></a>
   </p>
 {% empty %}
+  {% if request.GET.q %}
+    <p>No posts found.</p>
+  {% else %}
     <p>No posts yet.</p>
+  {% endif %}
 {% endfor %}
