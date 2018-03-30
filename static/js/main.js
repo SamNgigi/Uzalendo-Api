@@ -46,7 +46,7 @@ $(document).ready(function() {
       }
   }
 
-
+  // Having the ajax call in a function gives us the abilitu to be able to call it anywhere.
   function fetchPosts() {
     console.log('fetching..');
     $.ajax({
@@ -74,11 +74,32 @@ $(document).ready(function() {
   // fetchPosts()
 
   $("#post-form").submit(function(event){
+    // Prevents default submition
     event.preventDefault()
     var submited = $(this)
     console.log(event);
-    console.log(submited);
-    fetchPosts()
+    console.log(submited.serialize());
+    var formData =  submited.serialize()
+
+    $.ajax({
+      url:"/posts/api/create/",
+      // data is now our serialized form data.
+      data: formData,
+      method:"POST",
+      success: function(data) {
+        // Loging if call is successful
+          console.log(data);
+        // fetching updated list
+          fetchPosts()
+
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data.statusText);
+        console.log(data.status);
+      }
+    })
+
   });
 
 });

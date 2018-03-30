@@ -7,6 +7,7 @@
 <!-- Post form -->
   {% if not request.GET.q %}
     <div class="row mb-4">
+      <!-- form_id = 'post-form' added to connect with ajax request. -->
       {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' form_id='post-form' %}
     </div>
   {% endif %}
