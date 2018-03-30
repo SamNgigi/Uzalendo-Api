@@ -12,7 +12,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     serializer for the User model through a foriegn key that ties our
     user in post to the AUTH_USER_MODEL.
     """
-    user = UserDisplaySerializer()
+    user = UserDisplaySerializer(read_only=True)  # Write only
 
     class Meta:
         model = Post

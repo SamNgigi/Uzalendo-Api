@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 # from django.views.generic.base import RedirectView
 from .views import (
     PostListApiView,
-    # PostDetailView,
+    PostCreateApiView,
     # PostCreateView,
     # PostUpdateView,
     # PostDeleteView
@@ -22,8 +22,8 @@ urlpatterns = [
     # url(r'^$', RedirectView.as_view(url='/'), name='post_list'),
     url(r'^$', PostListApiView.as_view(), name='post_list_api'),  # api/posts/
     # url(r'^(?P<pk>\d+)/$', PostDetailView.as_view(), name='post_detail'),
-    # url(r'^create/$', PostCreateView.as_view(),
-    #     name='create_post'),
+    url(r'^create/$', PostCreateApiView.as_view(),
+        name='post_create_api'),
     # url(r'^update/(?P<pk>\d+)/$', PostUpdateView.as_view(),
     #     name='post_update'),
     # url(r'^delete/(?P<pk>\d+)/$', PostDeleteView.as_view(),

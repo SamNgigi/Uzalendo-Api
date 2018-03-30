@@ -1,5 +1,6 @@
 from django.db.models import Q
 from rest_framework import generics
+from rest_framework import permissions
 
 from post_app.models import Post
 from .serializers import PostModelSerializer
@@ -18,3 +19,17 @@ class PostListApiView(generics.ListAPIView):
                 Q(user__username__icontains=query)
             )
         return searched_posts
+
+
+class PostCreateApiView(generics.CreateAPIView):
+    serializer_class = PostModelSerializer
+    # Allows us to only allow authenticated users to post.
+    permission_classes = [permissions.IsAuthenticated]
+
+    """
+    This function below allows us to attach a user to a post created
+    through serialization
+    """
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
