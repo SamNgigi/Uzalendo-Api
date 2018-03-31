@@ -124,11 +124,13 @@ $(document).ready(function() {
       data: formData,
       method: "POST",
       success: function(data) {
+        submited.find("input[type=text], textarea").val("")
         // Loging if call is successful
         console.log(data);
         // fetching updated list
         // fetchPosts()
         prependPost(data, true)
+
 
       },
       error: function(data) {
