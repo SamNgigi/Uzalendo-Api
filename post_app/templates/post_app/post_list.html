@@ -12,15 +12,19 @@
     </div>
   {% endif %}
   <hr>
-<!-- Ajax experiment -->
-<div id="post-container">
-
-</div>
 <!-- Links to Api -->
   <p>
     <a href="{% url 'posts_api:post_list_api' %}">Post List Api</a> |
     <a href="{% url 'posts_api:post_create_api' %}">Post Create Api</a>
   </p>
+  <hr>
+<!-- Ajax experiment -->
+<div id="post-container">
+
+</div>
+<!-- Load more -->
+<a href="#" id="loadMore">Load more Posts</a>
+<hr>
 <!-- List of posts -->
   {% include "snippets.html" with list=object_list %}
 {% endblock %}

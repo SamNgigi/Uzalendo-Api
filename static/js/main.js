@@ -18,6 +18,12 @@ function getParameterByName(name, url) {
 
 $(document).ready(function() {
 
+  // Stores the query url in query
+  var query = getParameterByName('q')
+  // console.log(query);
+  var postList = []
+  var nextPostUrl;
+
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
       function getCookie(name) {
@@ -45,11 +51,7 @@ $(document).ready(function() {
 
   // console.log("Working");
 
-  // Stores the query url in query
-  var query = getParameterByName('q')
-  // console.log(query);
 
-  var postList = []
 
   function prependPost(postData, prepend) {
     // Storing data from ajax call.
@@ -84,10 +86,16 @@ $(document).ready(function() {
   }
 
   // Having the ajax call in a function gives us the abilitu to be able to call it anywhere.
-  function fetchPosts() {
+  function fetchPosts(url) {
     console.log('fetching..');
+    var fetchUrl;
+    if(!url){
+      fetchUrl = "/posts/api/"
+    } else {
+      fetchUrl = url
+    }
     $.ajax({
-      url: "/posts/api/",
+      url: fetchUrl,
       // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
       data: {
         "q": query
@@ -98,6 +106,8 @@ $(document).ready(function() {
         // console.log(data);
         // Storing our data in our empty postList
         postList = data.results
+        // Getting next page from pagination
+        nextPostUrl = data.next
         // Parsing the data from postList
         parsePosts()
 
@@ -108,9 +118,18 @@ $(document).ready(function() {
       }
     })
   }
-  // Calling the fetchPost everytime the page loads.
+  // Calling the fetchPosts everytime the page loads.
   fetchPosts()
 
+  // Load more
+  $('#loadMore').click(function(event) {
+    event.preventDefault()
+    if(nextPostUrl){
+      fetchPosts(nextPostUrl)
+    }
+  })
+
+  // Char counting
   var charsStart = 155;
   var charsCounter = 0;
   // Appending characters left counter to our create post form
@@ -193,7 +212,7 @@ $(document).ready(function() {
     // console.log(event.key);
     searchQuery = $(this).val()
     // console.log(searchQuery)
-    // clearTimeout;
+    // clearTimeout seems like an inbuilt function.
     // Start searching after someone stops typing. I.e on key up.
     clearTimeout(typingTimer)
     typingTimer = setTimeout(doneSearchTyping, doneInterval)
