@@ -22,6 +22,10 @@ $(document).ready(function() {
   var query = getParameterByName('q')
   // console.log(query);
   var postList = []
+  // Pagination allows us to have the .next property that is responsible for navigating between pages.
+  // .next gives us a url that we will store in our nextPostUrl
+  //  "next": "http://127.0.0.1:8000/posts/api/?page=2",
+  // So simply nextPostUrl = "http://127.0.0.1:8000/posts/api/?page=2" or 3 or 1
   var nextPostUrl;
 
   $.ajaxSetup({
@@ -110,6 +114,7 @@ $(document).ready(function() {
           // Getting next page from pagination
           nextPostUrl = data.next
         } else {
+          // We hide load more link if .next propery is null.
           $('#loadMore').css("display", "none")
         }
         // Parsing the data from postList
@@ -129,6 +134,7 @@ $(document).ready(function() {
   $('#loadMore').click(function(event) {
     event.preventDefault()
     if(nextPostUrl){
+      // We pass in our next url through the fetchPosts(url)
       fetchPosts(nextPostUrl)
     }
   })
