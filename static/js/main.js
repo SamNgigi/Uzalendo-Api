@@ -108,7 +108,26 @@ $(document).ready(function() {
       }
     })
   }
+  // Calling the fetchPost everytime the page loads.
   fetchPosts()
+
+  var charsStart = 155;
+  var currentChars = 0;
+  // Appending characters left counter to our create post form
+  $("#post-form").append(
+    "<span id='postCharsLeft' class='badge badge-info badge-pill'>" + charsStart +"</span>"
+  )
+  // Just incase input[type=text]. Our input is not a textarea.
+  $("#post-form input[type=text]").keyup(function(event) {
+    // Would return the key number and the time i typed the specific character.
+    // console.log(event.key, event.timeStamp);
+
+    var keyValue = $(this).val()
+    console.log(keyValue);
+    currentChars = charsStart - keyValue.length
+    $("#postCharsLeft").text(currentChars)
+  })
+
 
   $("#post-form").submit(function(event) {
     // Prevents default submition
