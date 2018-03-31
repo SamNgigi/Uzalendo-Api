@@ -111,7 +111,7 @@ $(document).ready(function() {
   // Calling the fetchPost everytime the page loads.
   fetchPosts()
 
-  var charsStart = 30;
+  var charsStart = 155;
   var charsCounter = 0;
   // Appending characters left counter to our create post form
   $("#post-form").append(
@@ -133,7 +133,7 @@ $(document).ready(function() {
       charDisplay.removeClass("badge-secondary")
       charDisplay.removeClass("badge-danger")
       charDisplay.addClass("badge-success")
-    } else if(charsCounter == 0) {
+    } else if(charsCounter === 0) {
       charDisplay.removeClass("badge-success")
       charDisplay.addClass("badge-secondary")
       charDisplay.removeClass("badge-success")
@@ -152,29 +152,40 @@ $(document).ready(function() {
     console.log(event);
     console.log(submited.serialize());
     var formData = submited.serialize()
+    // Submit if charsCounter is more the 0
+    if(charsCounter >= 0){
+      $.ajax({
+        url: "/posts/api/create/",
+        // data is now our serialized form data.
+        data: formData,
+        method: "POST",
+        success: function(data) {
+          submited.find("input[type=text], textarea").val("")
+          // Loging if call is successful
+          console.log(data);
+          // fetching updated list
+          // fetchPosts()
+          prependPost(data, true)
 
-    $.ajax({
-      url: "/posts/api/create/",
-      // data is now our serialized form data.
-      data: formData,
-      method: "POST",
-      success: function(data) {
-        submited.find("input[type=text], textarea").val("")
-        // Loging if call is successful
-        console.log(data);
-        // fetching updated list
-        // fetchPosts()
-        prependPost(data, true)
 
+        },
+        error: function(data) {
+          console.log("error");
+          console.log(data.statusText);
+          console.log(data.status);
+        }
+      })
+    } else {
+      console.log("Cannot submit post. Too long.");
+    }
 
-      },
-      error: function(data) {
-        console.log("error");
-        console.log(data.statusText);
-        console.log(data.status);
-      }
-    })
 
   });
+
+
+  // Search on key up
+  $('#searchForm').keyup(function(event) {
+    console.log(event.key);
+  })
 
 });
