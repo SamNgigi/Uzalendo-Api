@@ -106,8 +106,12 @@ $(document).ready(function() {
         // console.log(data);
         // Storing our data in our empty postList
         postList = data.results
-        // Getting next page from pagination
-        nextPostUrl = data.next
+        if (data.next){
+          // Getting next page from pagination
+          nextPostUrl = data.next
+        } else {
+          $('#loadMore').css("display", "none")
+        }
         // Parsing the data from postList
         parsePosts()
 
