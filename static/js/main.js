@@ -112,7 +112,7 @@ $(document).ready(function() {
   fetchPosts()
 
   var charsStart = 155;
-  var currentChars = 0;
+  var charsCounter = 0;
   // Appending characters left counter to our create post form
   $("#post-form").append(
     "<span id='postCharsLeft' class='badge badge-info badge-pill'>" + charsStart +"</span>"
@@ -124,8 +124,8 @@ $(document).ready(function() {
 
     var keyValue = $(this).val()
     console.log(keyValue);
-    currentChars = charsStart - keyValue.length
-    $("#postCharsLeft").text(currentChars)
+    charsCounter = charsStart - keyValue.length
+    $("#postCharsLeft").text(charsCounter)
   })
 
 
