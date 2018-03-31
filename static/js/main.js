@@ -119,9 +119,9 @@ $(document).ready(function() {
   )
   // Just incase input[type=text]. Our input is not a textarea.
   $("#post-form input[type=text]").keyup(function(event) {
-    // Would return the key number and the time i typed the specific character.
-    // console.log(event.key, event.timeStamp);
-
+// Would return the key number and the time i typed the specific character.
+// console.log(event.key, event.timeStamp);
+  // Storing our values
     var keyValue = $(this).val()
     console.log(keyValue);
     charsCounter = charsStart - keyValue.length
@@ -184,8 +184,30 @@ $(document).ready(function() {
 
 
   // Search on key up
-  $('#searchForm').keyup(function(event) {
-    console.log(event.key);
+  var typingTimer;
+  var doneInterval = 800; //ms
+  var searchQuery = $('#searchForm input[type=text]')
+  var searchQuery;
+
+  searchQuery.keyup(function(event) {
+    // console.log(event.key);
+    searchQuery = $(this).val()
+    // console.log(searchQuery)
+    // clearTimeout;
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(doneSearchTyping, doneInterval)
   })
+  searchQuery.keydown(function(event) {
+    // console.log(event.key);
+    clearTimeout(typingTimer)
+
+  })
+  function doneSearchTyping() {
+    if(searchQuery){
+      // do search
+      var url = '/posts/search/?q=' + searchQuery
+      document.location.href = url;
+    }
+  }
 
 });
