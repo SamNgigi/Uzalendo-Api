@@ -111,11 +111,11 @@ $(document).ready(function() {
   // Calling the fetchPost everytime the page loads.
   fetchPosts()
 
-  var charsStart = 155;
+  var charsStart = 30;
   var charsCounter = 0;
   // Appending characters left counter to our create post form
   $("#post-form").append(
-    "<span id='postCharsLeft' class='badge badge-info badge-pill'>" + charsStart +"</span>"
+    "<span id='postCharsLeft' class='badge  badge-pill'>" + charsStart +"</span>"
   )
   // Just incase input[type=text]. Our input is not a textarea.
   $("#post-form input[type=text]").keyup(function(event) {
@@ -125,7 +125,23 @@ $(document).ready(function() {
     var keyValue = $(this).val()
     console.log(keyValue);
     charsCounter = charsStart - keyValue.length
-    $("#postCharsLeft").text(charsCounter)
+    charDisplay = $("#postCharsLeft")
+    charDisplay.text(charsCounter)
+
+    if(charsCounter > 0){
+      // Do something
+      charDisplay.removeClass("badge-secondary")
+      charDisplay.removeClass("badge-danger")
+      charDisplay.addClass("badge-success")
+    } else if(charsCounter == 0) {
+      charDisplay.removeClass("badge-success")
+      charDisplay.addClass("badge-secondary")
+      charDisplay.removeClass("badge-success")
+    } else if (charsCounter < 0){
+      charDisplay.removeClass("badge-success")
+      charDisplay.addClass("badge-danger")
+      charDisplay.removeClass("badge-secondary")
+    }
   })
 
 
