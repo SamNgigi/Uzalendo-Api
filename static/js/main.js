@@ -185,7 +185,7 @@ $(document).ready(function() {
 
   // Search on key up
   var typingTimer;
-  var doneInterval = 800; //ms
+  var doneInterval = 1000; //ms
   var searchQuery = $('#searchForm input[type=text]')
   var searchQuery;
 
@@ -194,11 +194,13 @@ $(document).ready(function() {
     searchQuery = $(this).val()
     // console.log(searchQuery)
     // clearTimeout;
+    // Start searching after someone stops typing. I.e on key up.
     clearTimeout(typingTimer)
     typingTimer = setTimeout(doneSearchTyping, doneInterval)
   })
   searchQuery.keydown(function(event) {
     // console.log(event.key);
+    // While typing.
     clearTimeout(typingTimer)
 
   })

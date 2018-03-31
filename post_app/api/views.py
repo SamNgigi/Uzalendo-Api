@@ -5,9 +5,12 @@ from rest_framework import permissions
 from post_app.models import Post
 from .serializers import PostModelSerializer
 
+from .pagination import StandardResultPagination
+
 
 class PostListApiView(generics.ListAPIView):
     serializer_class = PostModelSerializer
+    pagination_class = StandardResultPagination
 
     def get_queryset(self, *args, **kwargs):
         searched_posts = Post.objects.all()
