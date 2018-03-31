@@ -97,7 +97,7 @@ $(document).ready(function() {
         // Loging if call is successful
         // console.log(data);
         // Storing our data in our empty postList
-        postList = data
+        postList = data.results
         // Parsing the data from postList
         parsePosts()
 
