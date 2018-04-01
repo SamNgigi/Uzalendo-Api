@@ -62,7 +62,8 @@ class PostListView(ListView):
     # template_name = 'posts/post_list.html'
     # queryset = Post.objects.all()
     def get_queryset(self, *args, **kwargs):
-        all_posts = Post.objects.all()
+        friends_post = self.request.user.profile.get_following()
+        all_posts = Post.objects.filter(user__in=friends_post)
         # We want to create a request parameter. We test that with this print
         # It returns an empty query dictionary. i.e <QueryDict:{}>
         # print(self.request.GET)
