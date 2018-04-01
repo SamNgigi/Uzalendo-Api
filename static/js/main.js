@@ -28,6 +28,18 @@ $(document).ready(function() {
   // So simply nextPostUrl = "http://127.0.0.1:8000/posts/api/?page=2" or 3 or 1
   var nextPostUrl;
 
+
+  function updateHashLinks(){
+    $(".post-content").each(function(data) {
+      // We are creating a regex to recoginize a #
+      var hashtagRegex = /(^|\s)#([\w\d-]+)/g
+      // we want the word after the word after the hash tag to be a clickable link
+      var newText = $(this).html().replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
+      $(this).html(newText)
+    })
+  }
+
+
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
       function getCookie(name) {
@@ -63,7 +75,7 @@ $(document).ready(function() {
     var postContent = postData.content;
     var dateDisplay = postData.date_display;
     var postContent = postData.content;
-    var postFormattedHtml = "<p>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='#'>View</a>" + "</p>" + "<br/>" + "<hr>"
+    var postFormattedHtml = "<p class='post-content'>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='#'>View</a>" + "</p>" + "<br/>" + "<hr>"
 
     if (prepend == true){
       $("#post-container").prepend(postFormattedHtml)
@@ -119,6 +131,8 @@ $(document).ready(function() {
         }
         // Parsing the data from postList
         parsePosts()
+        // hashtag links
+        updateHashLinks()
 
       },
       error: function(data) {
@@ -195,6 +209,8 @@ $(document).ready(function() {
           // fetching updated list
           // fetchPosts()
           prependPost(data, true)
+          // hash tag links
+          updateHashLinks()
 
 
         },
