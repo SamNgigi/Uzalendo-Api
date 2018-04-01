@@ -65,7 +65,7 @@ class PostListView(ListView):
         all_posts = Post.objects.all()
         # We want to create a request parameter. We test that with this print
         # It returns an empty query dictionary. i.e <QueryDict:{}>
-        print(self.request.GET)
+        # print(self.request.GET)
         query = self.request.GET.get("q", None)
         """
         Below we allow for a more robust search using the Q

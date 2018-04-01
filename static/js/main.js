@@ -63,7 +63,7 @@ $(document).ready(function() {
     var postContent = postData.content;
     var dateDisplay = postData.date_display;
     var postContent = postData.content;
-    var postFormattedHtml = "<p>" + "-" + postContent + "<br/>" + postUser.username + "  |  " + dateDisplay + "  |  " + "<a href='#'>View</a>" + "</p>" + "<br/>" + "<hr>"
+    var postFormattedHtml = "<p>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='#'>View</a>" + "</p>" + "<br/>" + "<hr>"
 
     if (prepend == true){
       $("#post-container").prepend(postFormattedHtml)

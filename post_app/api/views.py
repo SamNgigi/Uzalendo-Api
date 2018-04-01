@@ -14,7 +14,7 @@ class PostListApiView(generics.ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         searched_posts = Post.objects.all()
-        print(self.request.GET)
+        # print(self.request.GET)
         query = self.request.GET.get("q", None)
         if query is not None:
             searched_posts = searched_posts.filter(
