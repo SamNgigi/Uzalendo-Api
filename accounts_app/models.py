@@ -8,6 +8,12 @@ from django.db import models
 
 
 class UserProfile(models.Model):
+    """
+    user.profile.following --> users i follow
+    user.profile.followed_by --> users that follow me, giving us the
+    reverse relationship
+    """
+    # user.profile
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='profile')
     following = models.ManyToManyField(
