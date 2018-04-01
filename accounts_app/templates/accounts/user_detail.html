@@ -15,6 +15,13 @@
        -->
         <p style="display:inline;" class="ml-1">Following: {{object.profile.get_following.count}}</p>
       </div>
+      <a href="{% url "accounts:user_follow" username=object.username %}">
+        {% if following %}
+          Unfollow
+        {% else %}
+          Follow
+        {% endif %}
+      </a>
     </div>
     <div class="col-sm-9 col-xs-12">
       <!-- Posts -->

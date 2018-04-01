@@ -4,7 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import (
-    UserDetailView
+    UserDetailView,
+    UserFollowView,
 )
 """
 .as_view() makes our class based views into functions
@@ -16,6 +17,8 @@ view to direct us back to home once done with search.
 urlpatterns = [
     url(r'^(?P<username>[\w.@+-]+)/$', UserDetailView.as_view(),
         name='user_details'),
+    url(r'^(?P<username>[\w.@+-]+)/follow/$', UserFollowView.as_view(),
+        name='user_follow'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
