@@ -5,9 +5,16 @@
     <div class="col-sm-3 col-xs-12">
       <img class="mr-3" src="{% static 'imgs/user.ico' %}" alt="Generic placeholder image" style="height:70px; width:70px;">
       <h1 style="display:inline;">{{object.username}}</h1>
-      <p>Followers: {{object.followed_by.count}}</p>
-      <!-- We have to add profile to take into account the profiles that another user is following -->
-      <p>Following: {{object.profile.following.count}}</p>
+      <div class="info">
+        <p style="display:inline;" class="mr-1">Followers: {{object.followed_by.count}}</p> |
+        <!--
+        We have to add profile to take into account the profiles that another user is following.
+        To get the count we can use ;
+          {{object.profile.following.count}} or
+          {{object.profile.get_following.count}} to use the method that excludes the user instance.
+       -->
+        <p style="display:inline;" class="ml-1">Following: {{object.profile.get_following.count}}</p>
+      </div>
     </div>
     <div class="col-sm-9 col-xs-12">
       <!-- Posts -->
@@ -18,7 +25,8 @@
       <hr>
     <!-- Follow details -->
       <h1>Following</h1>
-      {% for user in object.profile.following.all  %}
+      <!-- Note that object.profile is the user instance and following is all the other profiles related to our user instance -->
+      {% for user in object.profile.get_following.all  %}
         <a href="{% url 'accounts:user_details' username=user.username %}">{{user.username}}</a>
         <br>
       {% empty %}
