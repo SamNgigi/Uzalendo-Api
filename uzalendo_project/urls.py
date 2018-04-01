@@ -21,11 +21,12 @@ from django.conf.urls.static import static
 
 # from .views import home. We make PostListView our home page.
 from post_app.views import PostListView
+from hashtag_app.views import HashTagView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', PostListView.as_view(), name='home'),
-    # url(r'^$', home, name='home'),
+    url(r'^hashtag/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
     url(r'^posts/api/', include('post_app.api.urls', namespace='posts_api')),

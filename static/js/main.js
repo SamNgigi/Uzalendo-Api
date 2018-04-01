@@ -34,7 +34,7 @@ $(document).ready(function() {
       // We are creating a regex to recoginize a #
       var hashtagRegex = /(^|\s)#([\w\d-]+)/g
       // we want the word after the word after the hash tag to be a clickable link
-      var newText = $(this).html().replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
+      var newText = $(this).html().replace(hashtagRegex, "$1<a href='/hashtag/$2/'>#$2</a>")
       $(this).html(newText)
     })
   }
