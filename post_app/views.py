@@ -62,8 +62,10 @@ class PostListView(ListView):
     # template_name = 'posts/post_list.html'
     # queryset = Post.objects.all()
     def get_queryset(self, *args, **kwargs):
-        friends_post = self.request.user.profile.get_following()
-        all_posts = Post.objects.filter(user__in=friends_post)
+        friends = self.request.user.profile.get_following()
+        friends_post = Post.objects.filter(user__in=friends)
+        my_post = Post.objects.filter(user=self.request.user)
+        queryset = (friends_post | my_post).distinct()
         # We want to create a request parameter. We test that with this print
         # It returns an empty query dictionary. i.e <QueryDict:{}>
         # print(self.request.GET)
@@ -76,11 +78,11 @@ class PostListView(ListView):
         We import Q from django.db.models.
         """
         if query is not None:
-            all_posts = all_posts.filter(
+            queryset = queryset.filter(
                 Q(content__icontains=query) |
                 Q(user__username__icontains=query)
             )
-        return all_posts
+        return queryset
 
     def get_context_data(self, *args, **kwargs):
         """

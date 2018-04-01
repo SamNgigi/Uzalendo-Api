@@ -13,16 +13,19 @@ class PostListApiView(generics.ListAPIView):
     pagination_class = StandardResultPagination
 
     def get_queryset(self, *args, **kwargs):
-        friends_post = self.request.user.profile.get_following()
-        searched_posts = Post.objects.filter(user__in=friends_post)
+        friends = self.request.user.profile.get_following()
+        friends_post = Post.objects.filter(user__in=friends)
+        my_post = Post.objects.filter(user=self.request.user)
+        # distinct makes sure that there are no duplicates.
+        queryset = (friends_post | my_post).distinct()
         # print(self.request.GET)
         query = self.request.GET.get("q", None)
         if query is not None:
-            searched_posts = searched_posts.filter(
+            queryset = queryset.filter(
                 Q(content__icontains=query) |
                 Q(user__username__icontains=query)
             )
-        return searched_posts
+        return queryset
 
 
 class PostCreateApiView(generics.CreateAPIView):
