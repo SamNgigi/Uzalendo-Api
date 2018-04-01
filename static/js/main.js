@@ -39,7 +39,7 @@ $(document).ready(function() {
     })
   }
 
-
+// For solving ajax csrf error.
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
       function getCookie(name) {

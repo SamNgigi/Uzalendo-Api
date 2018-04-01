@@ -16,8 +16,9 @@
         | {{item.timestamp}} | {{item.timestamp | timesince}} ago | <a href="{% url 'posts:post_detail' pk=item.pk %}">View</a>
       </small>
     </div>
-    <a class="mr-2" href="{% url 'posts:post_update' pk=item.pk %}">Edit </a>
-    <a href="{% url 'posts:post_delete' pk=item.pk %}"> Delete</a>
+    <a class="mr-2" href="{% url 'posts:post_update' pk=item.pk %}">Edit </a> |
+    <a href="{% url 'posts:post_delete' pk=item.pk %}" class="m-1">  Delete</a> |
+    <a id="testThis" class="ml-2" href="#">Test</a>
   </li>
 </ul>
 {% empty %}
