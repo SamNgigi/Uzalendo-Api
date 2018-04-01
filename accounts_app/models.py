@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from django.urls import reverse_lazy
+
 from django.db import models
 
 # Create your models here.
@@ -72,3 +74,9 @@ class UserProfile(models.Model):
     def get_following(self):
         users = self.following.all()
         return users.exclude(username=self.user.username)
+
+    def follow_url(self):
+        return reverse_lazy(
+            "accounts:user_follow",
+            kwargs={"username": self.user.username}
+        )
