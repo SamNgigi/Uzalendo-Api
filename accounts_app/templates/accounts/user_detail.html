@@ -7,10 +7,18 @@
       <h1 style="display:inline;">{{object.username}}</h1>
     </div>
     <div class="col-sm-9 col-xs-12">
+      <!-- Posts -->
       <h1>Posts</h1>
         {% for post in object.post_set.all %}
           <p>- {{post}}</p><br>
         {% endfor %}
+      <!-- Follow details -->
+      <h1>Following</h1>
+      {% for user in object.profile.following.all  %}
+        {{user.username}}<br>
+      {% empty %}
+        <h2>Not following anyone yet.</h2>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
