@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 
 from django.db import models
 
+from django.db.models.signals import post_save
+
 # Create your models here.
 
 
@@ -17,7 +19,7 @@ class UserProfileManager(models.Manager):
 
     def all(self):
         all_profiles = self.get_queryset().all()
-        print(dir(self))
+        # print(dir(self))
         try:
             if self.instance:
                 all_profiles = all_profiles.exclude(user=self.instance)
@@ -75,8 +77,26 @@ class UserProfile(models.Model):
         users = self.following.all()
         return users.exclude(username=self.user.username)
 
+    # note that when we are using reverse_lazy we have to use kwargs={}
     def follow_url(self):
         return reverse_lazy(
             "accounts:user_follow",
             kwargs={"username": self.user.username}
         )
+
+    # absolute url for accounts app
+    def get_absolute_url(self):
+        return reverse_lazy(
+            "accounts:user_details",
+            kwargs={"username": self.user.username}
+        )
+
+
+def post_save_user_reciever(sender, instance, created, *args, **kwargs):
+    print(instance)
+    if created:
+        new_profile = UserProfile.objects.get_or_create(user=instance)
+    return new_profile
+
+
+post_save.connect(post_save_user_reciever, sender=settings.AUTH_USER_MODEL)
