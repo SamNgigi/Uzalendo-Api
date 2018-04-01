@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.urls import reverse_lazy
+
 from post_app.models import Post
 
 # Create your models here.
@@ -14,3 +16,6 @@ class HashTag(models.Model):
 
     def get_posts(self):
         return Post.objects.filter(content__icontains="#" + self.tag)
+
+    def get_absolute_url(self):
+        return reverse_lazy("hashtags", kwargs={"hashtag": self.tag})
