@@ -71,11 +71,12 @@ $(document).ready(function() {
 
   function prependPost(postData, prepend) {
     // Storing data from ajax call.
+    var postId = postData.id;
     var postUser = postData.user;
     var postContent = postData.content;
     var dateDisplay = postData.date_display;
     var postContent = postData.content;
-    var postFormattedHtml = "<p class='post-content'>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='#'>View</a>" + "</p>" + "<br/>" + "<hr>"
+    var postFormattedHtml = "<p class='post-content'>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" + "</p>" + "<br/>" + "<hr>"
 
     if (prepend == true){
       $("#post-container").prepend(postFormattedHtml)
