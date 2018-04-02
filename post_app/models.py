@@ -1,8 +1,16 @@
+# We want to try implement notification.
+import re
+from django.db.models.signals import post_save
+
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
 # We wanted to use this so that a user cannot retweet on the same day.
 from django.utils import timezone
+
+# Importing custom hashtag signal
+from hashtag_app.signals import parsed_hashtags
+
 # Importing validators
 from .validators import validate_content
 
@@ -82,3 +90,24 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("posts:post_detail", kwargs={"pk": self.pk})
+
+
+def post_save_reciever(sender, instance, created, *args, **kwargs):
+    if created and not instance.parent:
+        # notify user of @ mention. Returns a list of all instances
+        user_regex = r'@(?P<username>[\w.@+-]+)'
+        usernames = re.findall(user_regex, instance.content)
+        print(usernames)
+
+        """
+        notify user of # mentions. Returns a list of all instances.
+        We use this together with the our hashtag signal to
+        register all new tags hashtag model
+        """
+        hashtag_regex = r'#(?P<hashtag>[\w.@+-]+)'
+        hashtags = re.findall(hashtag_regex, instance.content)
+        parsed_hashtags.send(sender=instance.__class__, hashtag_list=hashtags)
+        print(hashtags)
+
+
+post_save.connect(post_save_reciever, sender=Post)
