@@ -18,6 +18,12 @@ class PostManager(models.Manager):
             original_parent = parent_object.parent
         else:
             original_parent = parent_object
+
+        # Make sure we don't keep reposting a reposted post.
+        queryset = self.get_queryset().filter(user=user, parent=parent_object)
+        if queryset.exists():
+            return None
+
         object = self.model(
             parent=original_parent,
             user=user,
