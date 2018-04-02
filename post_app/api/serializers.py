@@ -15,7 +15,7 @@ class ParentPostModelSerializer(serializers.ModelSerializer):
     """
     user = UserDisplaySerializer(read_only=True)  # Write only
     date_display = serializers.SerializerMethodField()
-    timesince = serializers.SerializerMethodField()
+    timesince = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Post

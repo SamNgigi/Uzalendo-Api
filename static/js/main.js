@@ -79,10 +79,12 @@ $(document).ready(function() {
     var postFormattedHtml;
     // Returns formated with a repost tag if it isn't an original post
     if (repost && postData.parent){
+      // Repost
       var rePost = postData.parent
       postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + "-" + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
 
     }else{
+      // Original Post
       postFormattedHtml = "<p class='post-content'>" + "-" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
 
     }

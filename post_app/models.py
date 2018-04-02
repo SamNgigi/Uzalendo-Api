@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
-
+# We wanted to use this so that a user cannot retweet on the same day.
+from django.utils import timezone
 # Importing validators
 from .validators import validate_content
 
@@ -20,7 +21,14 @@ class PostManager(models.Manager):
             original_parent = parent_object
 
         # Make sure we don't keep reposting a reposted post.
-        queryset = self.get_queryset().filter(user=user, parent=parent_object)
+        queryset = self.get_queryset().filter(
+            user=user,
+            parent=original_parent
+        ).filter(
+            timestamp__year=timezone.now().year,
+            timestamp__month=timezone.now().month,
+            timestamp__day=timezone.now().day,
+        )
         if queryset.exists():
             return None
 

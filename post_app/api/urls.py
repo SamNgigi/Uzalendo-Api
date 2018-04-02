@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from .views import (
     PostListApiView,
     PostCreateApiView,
-    # PostCreateView,
+    RePostApiView,
     # PostUpdateView,
     # PostDeleteView
 )
@@ -24,8 +24,8 @@ urlpatterns = [
     # url(r'^(?P<pk>\d+)/$', PostDetailView.as_view(), name='post_detail'),
     url(r'^create/$', PostCreateApiView.as_view(),
         name='post_create_api'),
-    # url(r'^update/(?P<pk>\d+)/$', PostUpdateView.as_view(),
-    #     name='post_update'),
+    url(r'^/(?P<pk>\d+)/repost/$', RePostApiView.as_view(),
+        name='repost'),
     # url(r'^delete/(?P<pk>\d+)/$', PostDeleteView.as_view(),
     #     name='post_delete'),
 ]

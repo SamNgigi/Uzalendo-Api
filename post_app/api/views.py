@@ -2,10 +2,20 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from post_app.models import Post
 from .serializers import PostModelSerializer
 
 from .pagination import StandardResultPagination
+
+
+class RePostApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        return Response(True)
 
 
 class PostListApiView(generics.ListAPIView):
