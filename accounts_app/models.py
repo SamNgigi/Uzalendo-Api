@@ -96,7 +96,6 @@ def post_save_user_reciever(sender, instance, created, *args, **kwargs):
     print(instance)
     if created:
         new_profile = UserProfile.objects.get_or_create(user=instance)
-    return new_profile
 
 
 post_save.connect(post_save_user_reciever, sender=settings.AUTH_USER_MODEL)
