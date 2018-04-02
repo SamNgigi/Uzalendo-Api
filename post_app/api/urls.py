@@ -24,7 +24,7 @@ urlpatterns = [
     # url(r'^(?P<pk>\d+)/$', PostDetailView.as_view(), name='post_detail'),
     url(r'^create/$', PostCreateApiView.as_view(),
         name='post_create_api'),
-    url(r'^/(?P<pk>\d+)/repost/$', RePostApiView.as_view(),
+    url(r'^(?P<pk>\d+)/repost/$', RePostApiView.as_view(),
         name='repost'),
     # url(r'^delete/(?P<pk>\d+)/$', PostDeleteView.as_view(),
     #     name='post_delete'),

@@ -15,7 +15,19 @@ class RePostApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, pk, format=None):
-        return Response(True)
+        post_queryset = Post.objects.filter(pk=pk)
+        message = "Not allowed!"
+        if post_queryset.exists() and post_queryset.count() == 1:
+            if request.user.is_authenticated():
+                post_copy = Post.objects.re_post(
+                    request.user, post_queryset.first()
+                )
+                if post_copy is not None:
+                    data = PostModelSerializer(post_copy).data
+                    return Response(data)
+                message = "Cannot repost the same post in 1 day"
+
+        return Response({"message": message}, status=400)
 
 
 class PostListApiView(generics.ListAPIView):
