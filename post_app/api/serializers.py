@@ -16,6 +16,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     user = UserDisplaySerializer(read_only=True)  # Write only
     date_display = serializers.SerializerMethodField()
     timesince = serializers.SerializerMethodField()
+    is_repost = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -26,7 +27,13 @@ class PostModelSerializer(serializers.ModelSerializer):
             'timestamp',
             'date_display',
             'timesince',
+            'is_repost',
         ]
+
+    def get_is_repost(self, object):
+        if object.parent:
+            return True
+        return False
 
     def get_date_display(self, object):
         return object.timestamp.strftime("%b %d  %Y | %I:%M %p")
