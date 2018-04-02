@@ -30,7 +30,7 @@ urlpatterns = [
         HashTagView.as_view(), name='hashtag'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
-    url(r'^posts/api/', include('post_app.api.urls', namespace='posts_api')),
+    url(r'^api/posts/', include('post_app.api.urls', namespace='posts_api')),
 ]
 
 if settings.DEBUG:

@@ -14,7 +14,7 @@ function getParameterByName(name, url) {
 
 // Note:
 // "{% url 'posts_api:post_list_api' %}" would work if we working with a block script. i.e in base.html
-// However with an external script file we have to write out the url the old fashion way >> url:"/posts/api/"
+// However with an external script file we have to write out the url the old fashion way >> url:"/api/posts/"
 
 $(document).ready(function() {
 
@@ -24,19 +24,32 @@ $(document).ready(function() {
   var postList = []
   // Pagination allows us to have the .next property that is responsible for navigating between pages.
   // .next gives us a url that we will store in our nextPostUrl
-  //  "next": "http://127.0.0.1:8000/posts/api/?page=2",
-  // So simply nextPostUrl = "http://127.0.0.1:8000/posts/api/?page=2" or 3 or 1
+  //  "next": "http://127.0.0.1:8000/api/posts/?page=2",
+  // So simply nextPostUrl = "http://127.0.0.1:8000/api/posts/?page=2" or 3 or 1
   var nextPostUrl;
 
 
-  // // repost click function
-  // $(".repost").click(function(event) {
-  //   event.preventDefault()
-  //   var url = "/api/posts/" + postId + "/repost"
-  //   $.ajax({
-  //     url, options}
-  //   )
-  // })
+  // repost click function
+  $(document.body).on("click", ".rePost", function(event) {
+    event.preventDefault()
+    console.log("clicked");
+    var repostUrl = "/api" + $(this).attr("href")
+
+    $.ajax({
+        method:"GET",
+        url: repostUrl,
+        success:function(data) {
+          console.log(data);
+          prependPost(data, true, true)
+          // hash tag links
+          updateHashLinks()
+        },
+        error: function(data) {
+          console.log("error");
+          console.log(data);
+        }
+      })
+  })
 
   function updateHashLinks(){
     $(".post-content").each(function(data) {
@@ -90,11 +103,11 @@ $(document).ready(function() {
     if (repost && postData.parent){
       // Repost
       var rePost = postData.parent
-      postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " -" + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='repost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
+      postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " -" + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
 
     }else{
       // Original Post
-      postFormattedHtml = "<p class='post-content'>"+ postId  + " -" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='repost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
+      postFormattedHtml = "<p class='post-content'>"+ postId  + " -" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
 
     }
 
@@ -132,13 +145,13 @@ $(document).ready(function() {
     console.log('fetching..');
     var fetchUrl;
     if(!url){
-      fetchUrl = "/posts/api/"
+      fetchUrl = "/api/posts/"
     } else {
       fetchUrl = url
     }
     $.ajax({
       url: fetchUrl,
-      // Our search term is passed in as data. This basically does "/posts/api/?q= + query" which we can also do.
+      // Our search term is passed in as data. This basically does "/api/posts/?q= + query" which we can also do.
       data: {
         "q": query
       },
@@ -192,7 +205,7 @@ $(document).ready(function() {
 // console.log(event.key, event.timeStamp);
   // Storing our values
     var keyValue = $(this).val()
-    console.log(keyValue);
+    // console.log(keyValue);
     charsCounter = charsStart - keyValue.length
     charDisplay = $("#postCharsLeft")
     charDisplay.text(charsCounter)
@@ -224,7 +237,7 @@ $(document).ready(function() {
     // Submit if charsCounter is more the 0
     if(charsCounter >= 0){
       $.ajax({
-        url: "/posts/api/create/",
+        url: "/api/posts/create/",
         // data is now our serialized form data.
         data: formData,
         method: "POST",
@@ -234,6 +247,7 @@ $(document).ready(function() {
           console.log(data);
           // fetching updated list
           // fetchPosts()
+          // prepend new post
           prependPost(data, true)
           // hash tag links
           updateHashLinks()
