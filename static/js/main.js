@@ -55,8 +55,18 @@ $(document).ready(function() {
     $(".post-content").each(function(data) {
       // We are creating a regex to recoginize a #
       var hashtagRegex = /(^|\s)#([\w\d-]+)/g
-      // we want the word after the word after the hash tag to be a clickable link
-      var newText = $(this).html().replace(hashtagRegex, "$1<a href='/hashtag/$2/'>#$2</a>")
+
+      // We are creating a regex to recoginize a @
+      var usernameRegex = /(^|\s)@([\w\d-]+)/g
+
+      var currentHtml = $(this).html()
+      var newText;
+
+      // we want the word after the # tag to be a clickable link
+      newText = currentHtml.replace(hashtagRegex, "$1<a href='/hashtag/$2/'>#$2</a>")
+
+      // we want the name after the @ tag to be a clickable link
+      newText = newText.replace(usernameRegex, "$1<a href='/$2/'>@$2</a>")
       $(this).html(newText)
     })
   }
