@@ -29,6 +29,15 @@ $(document).ready(function() {
   var nextPostUrl;
 
 
+  // // repost click function
+  // $(".repost").click(function(event) {
+  //   event.preventDefault()
+  //   var url = "/api/posts/" + postId + "/repost"
+  //   $.ajax({
+  //     url, options}
+  //   )
+  // })
+
   function updateHashLinks(){
     $(".post-content").each(function(data) {
       // We are creating a regex to recoginize a #
@@ -81,11 +90,11 @@ $(document).ready(function() {
     if (repost && postData.parent){
       // Repost
       var rePost = postData.parent
-      postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " -" + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
+      postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " -" + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='repost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
 
     }else{
       // Original Post
-      postFormattedHtml = "<p class='post-content'>"+ postId  + " -" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
+      postFormattedHtml = "<p class='post-content'>"+ postId  + " -" + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='repost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
 
     }
 
