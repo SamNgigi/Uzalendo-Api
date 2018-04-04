@@ -18,13 +18,13 @@ function getParameterByName(name, url) {
 
 
 // All Js logic responsible for App functionality.
-function loadPosts() {
+function loadPosts(postContainerId) {
 
 
     // Stores the query url in query
     var query = getParameterByName('q');
-    var baseUrl = "/api/posts/";
-    var postContainer = $("#post-container");
+    // var baseUrl = "/api/posts/";
+
     // console.log(query);
     var postList = [];
     // Pagination allows us to have the .next property that is responsible for navigating between pages.
@@ -32,6 +32,13 @@ function loadPosts() {
     //  "next": "http://127.0.0.1:8000/api/posts/?page=2",
     // So simply nextPostUrl = "http://127.0.0.1:8000/api/posts/?page=2" or 3 or 1
     var nextPostUrl;
+
+    if (postContainerId){
+      postContainer = $("#" + postContainerId)
+    }else {
+      var postContainer = $("#post-container");
+    }
+    var baseUrl = postContainer.attr("data-url") || "/api/posts/"
 
     // Like functionality
     $(document.body).on("click", ".post-like", function(event) {
@@ -45,11 +52,7 @@ function loadPosts() {
         method:"GET",
         url: likeUrl,
         success: function(data) {
-          if (data.liked){
-            this_.text("Liked ")
-          } else {
-            this_.text("Like ")
-          }
+          console.log(data);
         },
         error:function(data){
           console.log("error");
@@ -138,19 +141,25 @@ function loadPosts() {
       var postContent = postData.content;
       var dateDisplay = postData.date_display;
       var postContent = postData.content;
-      var likeCount = postData.likes
       var postFormattedHtml;
+      var likeCount = postData.likes
+      var verb = ' Like '
       console.log(postId);
+
+      if(postData.did_like){
+        verb = ' Unlike '
+      }
+
       // Returns formated with a repost tag if it isn't an original post
       if (repost && postData.parent){
         // Repost
         var rePost = postData.parent
-        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#' data-id=" + postId + ">Like </a>"+ likeCount +"</p><br/><hr>"
+        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#' data-id=" + postId + ">"+ verb +"</a>"+ likeCount +"</p><br/><hr>"
 
       }else{
 
         // Original Post
-        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postId + ">Like </a>"+ likeCount +"</p><br/><hr>"
+        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postId + ">"+ verb +"</a>"+ likeCount +"</p><br/><hr>"
 
       }
 

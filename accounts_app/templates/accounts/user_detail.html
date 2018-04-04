@@ -46,6 +46,13 @@
     <div class="col-sm-9 col-xs-12">
       <!-- Posts -->
       <h1>Posts</h1>
+      <!-- Ajax content -->
+      <div id="post-container" data-url='/api/accounts/{{object.username}}/posts/'>
+
+      </div>
+      <!-- Load more note that we actually do not need the href for load more to work. Just the id that jquery will hook onto.-->
+      <a href="#" id="loadMore">Load more Posts</a>
+      <!-- Django content -->
         {% for post in object.post_set.all %}
           <p>- {{post}}</p><br>
         {% endfor %}

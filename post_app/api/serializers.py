@@ -43,6 +43,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     timesince = serializers.SerializerMethodField()
     parent = ParentPostModelSerializer(read_only=True)
     likes = serializers.SerializerMethodField()
+    did_like = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -55,7 +56,18 @@ class PostModelSerializer(serializers.ModelSerializer):
             'timesince',
             'parent',
             'likes',
+            'did_like',
         ]
+
+    def get_did_like(self, object):
+        # Getting users that like a post.
+        request = self.context.get("request")
+        user = request.user
+
+        if user.is_authenticated():
+            if user in object.likes.all():
+                return True
+        return False
 
     def get_likes(self, object):
         return object.likes.all().count()
