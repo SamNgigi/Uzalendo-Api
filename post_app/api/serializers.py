@@ -61,12 +61,14 @@ class PostModelSerializer(serializers.ModelSerializer):
 
     def get_did_like(self, object):
         # Getting users that like a post.
-        request = self.context.get("request")
-        user = request.user
-
-        if user.is_authenticated():
-            if user in object.likes.all():
-                return True
+        try:
+            request = self.context.get("request")
+            user = request.user
+            if user.is_authenticated():
+                if user in object.likes.all():
+                    return True
+        except:
+            pass
         return False
 
     def get_likes(self, object):
