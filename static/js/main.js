@@ -34,10 +34,10 @@ function loadPosts() {
     var nextPostUrl;
 
     // Like functionality
-    $(document.body).on("click", "post-like", function(event) {
+    $(document.body).on("click", ".post-like", function(event) {
       event.preventDefault()
       var this_ = $(this)
-      this_.text("Like")
+      this_.text("Liked")
     })
 
 
