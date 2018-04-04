@@ -133,6 +133,21 @@ function loadPosts(postContainerId) {
     // console.log("Working");
 
 
+    function formatPost(postValue){
+      var verb = ' Like '
+
+      if(postValue.did_like){
+        verb = ' Unlike '
+      }
+
+      var postContent = "<p class='post-content'>"+ postValue.id  + " - " + postValue.content + "<br/> <a href='" + postValue.user.url + "'>" + postValue.user.username + "</a> |  " + postValue.date_display + "  |  " + "<a href='/posts/"+ postValue.id  +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postValue.id  +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postValue.id + ">"+ verb +"</a>"+ postValue.likes +"</p>"
+
+      var container = "<div class='media'><div class='media-body'>"+ postContent +"</div></div><hr>"
+
+      return container
+    }
+
+
     // Function that displays posts
     function prependPost(postData, prepend, repost) {
       // Storing data from ajax call.
@@ -146,9 +161,7 @@ function loadPosts(postContainerId) {
       var verb = ' Like '
       console.log(postId);
 
-      if(postData.did_like){
-        verb = ' Unlike '
-      }
+
 
       // Returns formated with a repost tag if it isn't an original post
       if (repost && postData.parent){
@@ -159,7 +172,7 @@ function loadPosts(postContainerId) {
       }else{
 
         // Original Post
-        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postId + ">"+ verb +"</a>"+ likeCount +"</p><br/><hr>"
+        postFormattedHtml = formatPost(postData)
 
       }
 
