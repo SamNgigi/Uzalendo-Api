@@ -42,6 +42,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     date_display = serializers.SerializerMethodField()
     timesince = serializers.SerializerMethodField()
     parent = ParentPostModelSerializer(read_only=True)
+    likes = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -52,8 +53,12 @@ class PostModelSerializer(serializers.ModelSerializer):
             'timestamp',
             'date_display',
             'timesince',
-            'parent'
+            'parent',
+            'likes',
         ]
+
+    def get_likes(self, object):
+        return object.likes.all().count()
 
     def get_is_repost(self, object):
         if object.parent:
