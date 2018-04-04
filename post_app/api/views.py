@@ -35,19 +35,31 @@ class PostListApiView(generics.ListAPIView):
     pagination_class = StandardResultPagination
 
     def get_queryset(self, *args, **kwargs):
-        friends = self.request.user.profile.get_following()
-        friends_post = Post.objects.filter(user__in=friends)
-        my_post = Post.objects.filter(user=self.request.user)
-        # distinct makes sure that there are no duplicates.
-        queryset = (friends_post | my_post).distinct()
-        # print(self.request.GET)
-        query = self.request.GET.get("q", None)
-        if query is not None:
-            queryset = queryset.filter(
-                Q(content__icontains=query) |
-                Q(user__username__icontains=query)
-            )
-        return queryset
+        # We want to display a particular user's post only
+        requested_user = self.kwargs.get("username")
+        if requested_user:
+            user_posts = Post.objects.filter(user__username=requested_user)
+            query = self.request.GET.get("q", None)
+            if query is not None:
+                user_posts = user_posts.filter(
+                    Q(content__icontains=query) |
+                    Q(content__username__icontains=query)
+                )
+            return user_posts
+        else:
+            friends = self.request.user.profile.get_following()
+            friends_post = Post.objects.filter(user__in=friends)
+            my_post = Post.objects.filter(user=self.request.user)
+            # distinct makes sure that there are no duplicates.
+            queryset = (friends_post | my_post).distinct()
+            # print(self.request.GET)
+            query = self.request.GET.get("q", None)
+            if query is not None:
+                queryset = queryset.filter(
+                    Q(content__icontains=query) |
+                    Q(user__username__icontains=query)
+                )
+            return queryset
 
 
 class PostCreateApiView(generics.CreateAPIView):

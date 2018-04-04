@@ -22,13 +22,6 @@
           Follow
         {% endif %}
       </a>
-    </div>
-    <div class="col-sm-9 col-xs-12">
-      <!-- Posts -->
-      <h1>Posts</h1>
-        {% for post in object.post_set.all %}
-          <p>- {{post}}</p><br>
-        {% endfor %}
       <hr>
     <!-- Follow details -->
       <h1>Following</h1>
@@ -49,6 +42,13 @@
         <h4>No followers currently.</h4>
       {% endfor %}
       <hr>
+    </div>
+    <div class="col-sm-9 col-xs-12">
+      <!-- Posts -->
+      <h1>Posts</h1>
+        {% for post in object.post_set.all %}
+          <p>- {{post}}</p><br>
+        {% endfor %}
     </div>
   </div>
 {% endblock %}
