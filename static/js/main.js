@@ -33,6 +33,13 @@ function loadPosts() {
     // So simply nextPostUrl = "http://127.0.0.1:8000/api/posts/?page=2" or 3 or 1
     var nextPostUrl;
 
+    // Like functionality
+    $(document.body).on("click", "post-like", function(event) {
+      event.preventDefault()
+      var this_ = $(this)
+      this_.text("Like")
+    })
+
 
     // repost click function
     $(document.body).on("click", ".rePost", function(event) {
@@ -118,11 +125,11 @@ function loadPosts() {
       if (repost && postData.parent){
         // Repost
         var rePost = postData.parent
-        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>" + "</p><br/><hr>"
+        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#'>Like</a>" + "</p>"+"<br/><hr>"
 
       }else{
         // Original Post
-        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "</p>" + "<br/>" + "<hr>"
+        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#'>Like</a>" + "</p>" + "<br/>" + "<hr>"
 
       }
 
@@ -157,7 +164,7 @@ function loadPosts() {
 
     // Having the ajax call in a function gives us the abilitu to be able to call it anywhere.
     function fetchPosts(url) {
-      console.log('fetching..');
+      console.log('fetching..Testing');
       var fetchUrl;
       if(!url){
         fetchUrl = baseUrl
