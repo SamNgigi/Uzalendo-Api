@@ -48,12 +48,31 @@ class PostManager(models.Manager):
         object.save()
         return object
 
+    def like_toggle(self, user, post_object):
+        if user in post_object.likes.all():
+            """
+            If a user had already  liked a
+            post and now clicks the like again...
+            remove the user from the likers and make is_liked = False
+            """
+            is_liked = False
+            post_object.likes.remove(user)
+        else:
+            """
+            The opposite.
+            """
+            is_liked = True
+            post_object.likes.add(user)
+        return is_liked
+
 
 class Post(models.Model):
     # Supposedly a much more robust way if defining the user model.
     parent = models.ForeignKey("self", blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     content = models.CharField(max_length=155, validators=[validate_content])
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name='liked')
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

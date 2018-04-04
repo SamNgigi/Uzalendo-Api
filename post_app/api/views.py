@@ -11,6 +11,19 @@ from .serializers import PostModelSerializer
 from .pagination import StandardResultPagination
 
 
+class LikeToggleApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        post_queryset = Post.objects.filter(pk=pk)
+        message = 'Not allowed'
+        if request.user.is_authenticated():
+            is_liked = Post.objects.like_toggle(
+                request.user, post_queryset.first())
+            return Response({"liked": is_liked})
+        return Response({"message": message}, status=400)
+
+
 class RePostApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

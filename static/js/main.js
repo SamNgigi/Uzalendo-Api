@@ -37,7 +37,25 @@ function loadPosts() {
     $(document.body).on("click", ".post-like", function(event) {
       event.preventDefault()
       var this_ = $(this)
-      this_.text("Liked")
+      var postId = this_.attr("data-id")
+      var likeUrl = '/api/posts/' + postId + '/like/'
+      // this_.text("Liked")
+
+      $.ajax({
+        method:"GET",
+        url: likeUrl,
+        success: function(data) {
+          if (data.liked){
+            this_.text("Liked")
+          } else {
+            this_.text("Like")
+          }
+        },
+        error:function(data){
+          console.log("error");
+          console.log(data);
+        }
+      })
     })
 
 
@@ -121,15 +139,17 @@ function loadPosts() {
       var dateDisplay = postData.date_display;
       var postContent = postData.content;
       var postFormattedHtml;
+      console.log(postId);
       // Returns formated with a repost tag if it isn't an original post
       if (repost && postData.parent){
         // Repost
         var rePost = postData.parent
-        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#'>Like</a>" + "</p>"+"<br/><hr>"
+        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#' data-id=" + postId + ">Like</a></p><br/><hr>"
 
       }else{
+
         // Original Post
-        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#'>Like</a>" + "</p>" + "<br/>" + "<hr>"
+        postFormattedHtml = "<p class='post-content'>"+ postId  + " - " + postContent + "<br/> <a href='" + postUser.url + "'>" + postUser.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ postId +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postId +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postId + ">Like</a></p><br/><hr>"
 
       }
 

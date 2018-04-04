@@ -10,6 +10,7 @@ from .views import (
     RePostApiView,
     # PostUpdateView,
     # PostDeleteView
+    LikeToggleApiView,
 )
 """
 .as_view() makes our class based views into functions
@@ -26,6 +27,8 @@ urlpatterns = [
         name='post_create_api'),
     url(r'^(?P<pk>\d+)/repost/$', RePostApiView.as_view(),
         name='repost'),
+    url(r'^(?P<pk>\d+)/like/$', LikeToggleApiView.as_view(),
+        name='like'),
     # url(r'^delete/(?P<pk>\d+)/$', PostDeleteView.as_view(),
     #     name='post_delete'),
 ]
