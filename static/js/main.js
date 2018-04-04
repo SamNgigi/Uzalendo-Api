@@ -53,6 +53,11 @@ function loadPosts(postContainerId) {
         url: likeUrl,
         success: function(data) {
           console.log(data);
+          if (data.liked){
+            this_.text("Liked")
+          } else {
+            this_.text("Unliked")
+          }
         },
         error:function(data){
           console.log("error");
@@ -133,18 +138,27 @@ function loadPosts(postContainerId) {
     // console.log("Working");
 
 
-    function formatPost(postValue){
-      var verb = ' Like '
-
-      if(postValue.did_like){
-        verb = ' Unlike '
+    function formatPost(postData){
+      var verb = 'Like'
+      if (postData.did_like){
+        verb = 'Unlike'
+      }
+      var repostHeader;
+      var contentContainer;
+      var postContent
+      if(postData.parent){
+        postData = postData.parent
+        repostHeader = "<span style='color:grey'>Repost by "+ postData.user.username + " on " + postData.date_display+"</span><br/>"
       }
 
-      var postContent = "<p class='post-content'>"+ postValue.id  + " - " + postValue.content + "<br/> <a href='" + postValue.user.url + "'>" + postValue.user.username + "</a> |  " + postValue.date_display + "  |  " + "<a href='/posts/"+ postValue.id  +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postValue.id  +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postValue.id + ">"+ verb +"</a>"+ postValue.likes +"</p>"
+      postContent = "<p class='post-content'>"+ postData.id  + " - " + postData.content + "<br/> <a href='" + postData.user.url + "'>" + postData.user.username + "</a> |  " + postData.date_display + "  |  " + "<a href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</p><br/><hr>"
 
-      var container = "<div class='media'><div class='media-body'>"+ postContent +"</div></div><hr>"
-
-      return container
+      if (repostHeader){
+        contentContainer = repostHeader + postContent
+      } else {
+        contentContainer = postContent
+      }
+      return contentContainer
     }
 
 
@@ -161,20 +175,11 @@ function loadPosts(postContainerId) {
       var verb = ' Like '
       console.log(postId);
 
-
-
-      // Returns formated with a repost tag if it isn't an original post
-      if (repost && postData.parent){
-        // Repost
-        var rePost = postData.parent
-        postFormattedHtml = "<span style='color:grey'>Repost by "+postUser.username+" on "+dateDisplay+"</span><br/><br/>"+"<p class='post-content'>" + postId + " - " + rePost.content + "<br/> <a href='" + rePost.user.url + "'>" + rePost.user.username + "</a> |  " + dateDisplay + "  |  " + "<a href='/posts/"+ rePost.id +"/'>View</a>" + "  |  "  + "<a class='rePost' href='/posts/"+ rePost.id +"/repost/'>Repost</a>"+ "  |  " +  "<a class='post-like' href='#' data-id=" + postId + ">"+ verb +"</a>"+ likeCount +"</p><br/><hr>"
-
-      }else{
-
-        // Original Post
-        postFormattedHtml = formatPost(postData)
-
+      if(postData.did_like){
+        verb = ' Unlike '
       }
+
+      postFormattedHtml = formatPost(postData)
 
       if (prepend == true){
         postContainer.prepend(postFormattedHtml)

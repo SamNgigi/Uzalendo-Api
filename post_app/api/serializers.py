@@ -16,6 +16,8 @@ class ParentPostModelSerializer(serializers.ModelSerializer):
     user = UserDisplaySerializer(read_only=True)  # Write only
     date_display = serializers.SerializerMethodField()
     timesince = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
+    did_like = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -26,7 +28,23 @@ class ParentPostModelSerializer(serializers.ModelSerializer):
             'timestamp',
             'date_display',
             'timesince',
+            'likes',
+            'did_like'
         ]
+
+    def get_did_like(self, object):
+        try:
+            request = self.context.get("request")
+            user = request.user
+            if user.is_authenticated():
+                if user in object.likes.all():
+                    return True
+        except Exception:
+            pass
+        return False
+
+    def get_likes(self, object):
+        return object.likes.all().count()
 
     def get_date_display(self, object):
         return object.timestamp.strftime("%b %d  %Y | %I:%M %p")
@@ -67,7 +85,7 @@ class PostModelSerializer(serializers.ModelSerializer):
             if user.is_authenticated():
                 if user in object.likes.all():
                     return True
-        except:
+        except Exception:
             pass
         return False
 
