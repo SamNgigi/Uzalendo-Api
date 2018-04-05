@@ -151,7 +151,11 @@ function loadPosts(postContainerId) {
         repostHeader = "<span style='color:grey'>Repost by "+ postDataInfo.user.username + " on " + postData.date_display+"</span><br/>"
       }
 
-      postContent = "<p class='post-content'>"+ postData.id  + " - " + postData.content + "<br/> <a href='" + postData.user.url + "'>" + postData.user.username + "</a> |  " + postData.date_display + "  |  " + "<a href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</p><br/><hr>"
+
+
+
+
+      postContent = "<div class='post-content m-1'><div class='card'><div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg' class='img-fluid'/><div class='profileinfo'><h1><a href='" + postData.user.url + "'>" + postData.user.username + "</a></h1><h3></h3><p class='bio'>" + postData.content +"</p><br><a href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</p></div></div></div></div>"
 
       if (repostHeader){
         contentContainer = repostHeader + postContent
