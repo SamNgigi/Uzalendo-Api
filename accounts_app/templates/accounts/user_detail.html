@@ -42,6 +42,15 @@
         <h4>No followers currently.</h4>
       {% endfor %}
       <hr>
+
+      <h1>Recommended</h1>
+      {% for profile in recommended  %}
+      <a href="{% url 'accounts:user_details' username=profile.user.username %}">{{profile.user.username}}</a>
+        <br>
+      {% empty %}
+        <h4>No followers currently.</h4>
+      {% endfor %}
+      <hr>
     </div>
     <div class="col-md-9 col-xs-12">
       <!-- Posts -->
@@ -52,7 +61,7 @@
       </div>
       <!-- Load more note that we actually do not need the href for load more to work. Just the id that jquery will hook onto.-->
       <a href="#" id="loadMore">Load more Posts</a>
-      
+
       <!-- Django content
         {% for post in object.post_set.all %}
           <p>- {{post}}</p><br>

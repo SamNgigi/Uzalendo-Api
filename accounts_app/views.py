@@ -30,6 +30,8 @@ class UserDetailView(DetailView):
         following = UserProfile.objects.is_following(
             self.request.user, self.get_object())
         content['following'] = following
+        content['recommended'] = UserProfile.objects.recommended(
+            self.request.user)
         return content
 
 

@@ -45,6 +45,21 @@ class UserProfileManager(models.Manager):
             return True
         return False
 
+    def recommended(self, user, limit_to=5):
+        profile = user.profile
+        # following = profile.following.all()
+        following = profile.get_following()
+        """
+        This query set just a list of all users.
+
+        In the future we could make it more robust to
+        recommend users using like count on particular
+        categories
+        """
+        queryset = self.get_queryset().exclude(
+            user__in=following).exclude(id=profile.id).order_by("?")[:limit_to]
+        return queryset
+
 
 # Setting up following
 class UserProfile(models.Model):
