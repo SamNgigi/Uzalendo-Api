@@ -153,12 +153,10 @@ function loadPosts(postContainerId) {
 
 
 
-
-
-      postContent = "<div class='post-content m-1'><div class='card'><div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg' class='img-fluid'/><div class='profileinfo'><h1><a href='" + postData.user.url + "'>" + postData.user.username + "</a></h1><h3></h3><p class='bio'>" + postData.content +"</p><br><a href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</p></div></div></div></div>"
+      postContent = "<div class='post-content m-3'><div class='card'><div class='firstinfo'><img src='http://pic.90sjimg.com/design/00/67/59/63/58e8d80b95e5a.png' alt='Generic placeholder image' style='height:100px; width:100px;' class='img-fluid'/><div class='profileinfo'><h1><a href='" + postData.user.url + "'>" + postData.user.username + "</a></h1><h3></h3><p class='bio'>" + postData.content +"</p><br/><a class='m-3' href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</div></div></div></div>"
 
       if (repostHeader){
-        contentContainer = repostHeader + postContent
+        contentContainer="<div class='post-content m-3'><div class='card'><div class='firstinfo'><img src='http://pic.90sjimg.com/design/00/67/59/63/58e8d80b95e5a.png' alt='Generic placeholder image' style='height:100px; width:100px;' class='img-fluid'/><div class='profileinfo'><h1><a href='" + postData.user.url + "'>" + postData.user.username + "</a></h1><h3></h3><p class='bio'>" + postData.content +"</p><br><a class='m-3' href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"<br/>"+ repostHeader+"</div></div></div></div>"
       } else {
         contentContainer = postContent
       }
