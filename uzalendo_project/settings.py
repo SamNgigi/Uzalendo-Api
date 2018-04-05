@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'hashtag_app',
     'accounts_app',
     'post_app',
-    'widget_tweaks',
     'corsheaders',
     'bootstrap4',
     'rest_framework',
