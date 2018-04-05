@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if request.GET.q %}
+          <p class="lead">Result for {{request.GET.q}}</p>
+          <hr>
+        {% endif %}
+      </div>
+      <div class="col-sm-9">
+        <h1>Posts</h1>
+        <hr>
+        <div id="post-container" data-url='/api/search'>
+
+        </div>
+        <a href="#" id="loadMore">Load more Posts</a>
+      </div>
+      <div class="col-md-3">
+        <h1>Users</h1>
+        <hr>
+        {% for user in users %}
+          <a href="/{{user.username}}/">{{user.username}}</a><br>
+        {% empty %}
+          <p>No user found</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

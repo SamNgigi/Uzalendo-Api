@@ -11,6 +11,28 @@ from .serializers import PostModelSerializer
 from .pagination import StandardResultPagination
 
 
+class SearchPostApiView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostModelSerializer
+    pagination_class = StandardResultPagination
+
+    def get_serializer_context(self, *args, **kwargs):
+        context = super(SearchPostApiView, self).get_serializer_context(
+            *args, **kwargs)
+        context['request'] = self.request
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = self.queryset
+        query = self.request.GET.get("q", None)
+        if query is not None:
+            queryset = queryset.filter(
+                Q(content__icontains=query) |
+                Q(user__username__icontains=query)
+            )
+        return queryset
+
+
 class LikeToggleApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

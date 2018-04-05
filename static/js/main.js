@@ -147,8 +147,8 @@ function loadPosts(postContainerId) {
       var contentContainer;
       var postContent
       if(postData.parent){
-        postData = postData.parent
-        repostHeader = "<span style='color:grey'>Repost by "+ postData.user.username + " on " + postData.date_display+"</span><br/>"
+        postDataInfo = postData.parent
+        repostHeader = "<span style='color:grey'>Repost by "+ postDataInfo.user.username + " on " + postData.date_display+"</span><br/>"
       }
 
       postContent = "<p class='post-content'>"+ postData.id  + " - " + postData.content + "<br/> <a href='" + postData.user.url + "'>" + postData.user.username + "</a> |  " + postData.date_display + "  |  " + "<a href='/posts/"+ postData.id +"/'>View</a>" +"  |  " + "<a class='rePost' href='/posts/"+ postData.id +"/repost/'>Repost</a>" + "  |  " + "<a class='post-like' href='#' data-id=" + postData.id + ">" + " "+ verb + " " +"</a>"+ postData.likes +"</p><br/><hr>"
@@ -167,7 +167,6 @@ function loadPosts(postContainerId) {
       // Storing data from ajax call.
       var postId = postData.id;
       var postUser = postData.user;
-      var postContent = postData.content;
       var dateDisplay = postData.date_display;
       var postContent = postData.content;
       var postFormattedHtml;
@@ -362,7 +361,7 @@ function loadPosts(postContainerId) {
     function doneSearchTyping() {
       if(searchQuery){
         // do search
-        var url = '/posts/search/?q=' + searchQuery
+        var url = '/search/?q=' + searchQuery
         document.location.href = url;
       }
     }
