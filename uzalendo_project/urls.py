@@ -24,6 +24,7 @@ from .views import SearchView
 from post_app.views import PostListView
 from hashtag_app.views import HashTagView
 from post_app.api.views import SearchPostApiView
+from hashtag_app.api.views import HashtagPostAPIView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -31,6 +32,8 @@ urlpatterns = [
     url(r'^$', PostListView.as_view(), name='home'),
     url(r'^hashtag/(?P<hashtag>.*)/$',
         HashTagView.as_view(), name='hashtag'),
+    url(r'^api/hashtag/(?P<hashtag>.*)/$',
+        HashtagPostAPIView.as_view(), name='hashtag_api'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
     url(r'^api/search$', SearchPostApiView.as_view(), name='search_api'),

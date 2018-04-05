@@ -1,5 +1,24 @@
  {% extends "base.html" %}
+ {% load static %}
  {% block content %}
+
+ <div class="row">
+   <div class="col-sm-12">
+     {% if request.GET.q %}
+      <p>Results for {{request.GET.q}}</p>
+      <hr>
+     {% endif %}
+   </div>
+   <div class="col-sm-8" class="col-sm-offset-2">
+     <h1>Posts</h1>
+     <hr>
+     <div id="post-container" data-url='/api/hashtag/{{object.tag}}/'>
+
+     </div>
+     <a href="#" id="loadMore">Load more</a>
+   </div>
+ </div>
+
  <div class="row">
    <div class="col-md-3 col-xs-12 p-2">
      <h1>#{{object.tag}}</h1>
