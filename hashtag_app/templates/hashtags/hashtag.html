@@ -18,15 +18,4 @@
      <a href="#" id="loadMore">Load more</a>
    </div>
  </div>
-
- <div class="row">
-   <div class="col-md-3 col-xs-12 p-2">
-     <h1>#{{object.tag}}</h1>
-   </div>
-   <div class="col-md-9">
-     {% for post in object.get_posts %}
-      {{post.content}}<br>
-     {% endfor %}
-   </div>
- </div>
  {% endblock %}
