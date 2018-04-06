@@ -1,115 +1,32 @@
-{% extends "base.html" %}
-<!-- main post list -->
-{% block content %}
-<!-- Search form -->
-  {% include "post_app/search_form.html" %}<br>
-  <hr>
-<!-- Post form -->
-  {% if not request.GET.q %}
-    <div class="row mb-4">
+<!--
+/* Border from Y to X  */
+div.borderYtoX a:before, div.borderYtoX a:after
+{
+    position: absolute;
+    opacity: 0.5;
+    height: 100%;
+    width: 2px;
+    content: '';
+    background: #FFF;
+    transition: all 0.3s;
+}
 
-      <div class="col-lg-5">
-        <div class="mimi">
-          <div class="header-mimi">
-            <img src="https://s17.postimg.org/ypm5ye95r/image.jpg" alt="" class="header-image" />
-            <div class="header">
-              <svg fill="#ffffff" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" class="header-icon">
-                <path d="M0 0h24v24H0z" fill="none"/>
-                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-              </svg>
+div.borderYtoX a:before
+{
+    left: 0px;
+    top: 0px;
+}
 
-              <!--
-              <svg fill="#ffffff" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" class="u-float-right header-icon">
-                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                <path d="M0 0h24v24H0z" fill="none"/>
-              </svg>
-             -->
-              <h1 class="main-heading">Sam</h1>
-              <span class="tag">software engineer</span>
-              <span class="tag">Developer</span>
-              <div class="stats">
-                <span class="stat-module">
-                  Posts <span class="stat-number">56</span>
-                </span>
-                <span class="stat-module"><!-- something --><span class="stat-number"><!-- something --></span>
-                </span>
-                <span class="stat-module"><!-- something --><span class="stat-number"><!-- something --></span>
-                </span>
-              </div>
-            </div> <!-- END header -->
-          </div>
+div.borderYtoX a:after
+{
+    right: 0px;
+    bottom: 0px;
+}
 
-          <div class="overlay-header"></div>
-
-          <div class="main">
-            <img src="http://pic.90sjimg.com/design/00/67/59/63/58e8d80b95e5a.png" alt="Hugh Jackman" class="main-image img-fluid" style="height:110px; width:110px;"/>
-            <div class="main-action-button u-flex-center">
-              <svg fill="#ffffff" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                <path d="M0 0h24v24H0z" fill="none"/>
-              </svg>
-            </div>
-            <span class="main-stats">Followers <span></span></span>
-            <span class="main-stats">Following <span></span></span>
-            <div class="u-clearfix"></div>
-            <div class="main-info">
-              <p>
-              Love life love people.
-              </p>
-              <p>
-              </p>
-            </div>
-            <!--
-            <div class="main-more">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          -->
-            <div class="crd u-clearfix">
-              <span class="crd-heading">Refferals</span>
-              <span class="crd-more">
-                <svg fill="#777777" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
-              </span>
-              <ul class="crd-list">
-                <li><img src="https://images.unsplash.com/photo-1484502249930-e1da807099a5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c1eb9b1c6be85a0e6fffee82ec8e21b8&auto=format&fit=crop&w=967&q=80" alt="" class="img-fluid" style="height:110px; width:163;"/></li>
-                <li><img src="https://images.unsplash.com/photo-1505587043598-a6da2ee1da2f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4a2f9e5c9364a880bd4dd482fe6a658a&auto=format&fit=crop&w=1051&q=80" alt="" class="img-fluid" style="height:110px; width:163;"/></li>
-                <li><img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94b811553f08fbd11a956e1729646589&auto=format&fit=crop&w=1050&q=80" alt="" class="img-fluid" style="height:110px; width:163;"/></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="col-lg-7">
-        <!-- form_id = 'post-form' added to connect with ajax request. -->
-        {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' form_id='post-form' %}
-
-        <!-- Ajax experiment -->
-        <div id="post-container" data-url='/api/posts/'>
-
-        </div>
-      </div>
-    </div>
-  {% endif %}
-  <hr>
-<!-- Links to Api -->
-  <p>
-    <a href="{% url 'posts_api:post_list_api' %}">Post List Api</a> |
-    <a href="{% url 'posts_api:post_create_api' %}">Post Create Api</a>
-  </p>
-  <hr>
-<div class="row">
-
-</div>
-<!-- Load more note that we actually do not need the href for load more to work. Just the id that jquery will hook onto.-->
-<a href="#" id="loadMore">Load more Posts</a>
-<hr>
-<!-- List of posts >>     -->
-{% include "snippets.html" with list=object_list %}
-
-{% endblock %}
+div.borderYtoX a:hover:before, div.borderYtoX a:hover:after
+{
+    opacity: 1;
+    height: 2px;
+    width: 100%;
+}
+ -->
