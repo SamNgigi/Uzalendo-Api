@@ -92,7 +92,7 @@ function loadPosts(postContainerId) {
     function updateHashLinks(){
       $(".post-content").each(function(data) {
         // We are creating a regex to recoginize a #
-        var hashtagRegex = /(^|\s)#([\w\d-]+)/g
+        var hashtagRegex = /(^-|\s)#([\w\d-]+)/g
 
         // We are creating a regex to recoginize a @
         var usernameRegex = /(^|\s)@([\w\d-]+)/g
