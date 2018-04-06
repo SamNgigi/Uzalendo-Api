@@ -1,73 +1,134 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-  <div class="row">
-    <div class="col-md-3 col-xs-12">
-      <img class="mr-3" src="{% static 'imgs/user.ico' %}" alt="Generic placeholder image" style="height:70px; width:70px;">
-      <h1 style="display:inline;">{{object.username}}</h1>
-      <div class="info">
-        <p style="display:inline;" class="mr-1">Followers: {{object.followed_by.count}}</p> |
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="row">
+  <div class="col-lg-5">
+    <div class="mimi">
+      <div class="header-mimi">
+        <img src="https://s17.postimg.org/ypm5ye95r/image.jpg" alt="" class="header-image" />
+        <div class="header">
+          <svg fill="#ffffff" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" class="header-icon">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+
+          <!--
+            <svg fill="#ffffff" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" class="u-float-right header-icon">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+           -->
+          <h1 class="main-heading">{{object.username}}</h1>
+          <span class="tag">software engineer</span>
+          <span class="tag">Developer</span>
+          <div class="stats">
+            <span class="stat-module">
+                Posts <span class="stat-number">56</span>
+            </span>
+            <span class="stat-module"><!-- something --><span class="stat-number"><!-- something --></span>
+            </span>
+            <span class="stat-module"><!-- something --><span class="stat-number"><!-- something --></span>
+            </span>
+          </div>
+        </div>
+        <!-- END header -->
+      </div>
+
+      <div class="overlay-header"></div>
+
+      <div class="main">
+        <img src="http://pic.90sjimg.com/design/00/67/59/63/58e8d80b95e5a.png" alt="Hugh Jackman" class="main-image img-fluid" style="height:110px; width:110px;" />
+        <div class="main-action-button u-flex-center">
+          <svg fill="#ffffff" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+        </div>
+        <span class="main-stats">Followers: {{object.followed_by.count}}<span> <span>{% for user in object.profile.get_following.all  %}
+            <a href="{% url 'accounts:user_details' username=user.username %}">{{user.username}}</a>
+            <br>
+          {% empty %}
+            <p>Not following anyone currently</p>
+          {% endfor %}</span></span>
+        </span>
+
+        <span class="main-stats">Following: {{object.profile.get_following.count}}<span> <span>  {% for profile in object.followed_by.all  %}
+            <a href="{% url 'accounts:user_details' username=profile.user.username %}">{{profile.user.username}}</a>
+              <br>
+            {% empty %}
+              <p>No followers currently.</p>
+            {% endfor %}</span></span>
+        </span><br>
+        <div class="u-clearfix"></div>
+        <div class="row">
+          <div class="col-12">
+            <div class="main-info">
+              <hr>
+
+              <hr>
+              <p>
+                Love life love people.
+              </p>
+              <hr>
+              <span class="main-stats mt-1">Recommended <span>{% for profile in recommended  %}
+                <a href="{% url 'accounts:user_details' username=profile.user.username %}">{{profile.user.username}}</a>
+                  <br>
+                {% empty %}
+                  <p>No followers currently.</p>
+                {% endfor %}
+              </span></span>
+              <p>
+              </p>
+            </div>
+          </div>
+        </div>
         <!--
-        We have to add profile to take into account the profiles that another user is following.
-        To get the count we can use ;
-          {{object.profile.following.count}} or
-          {{object.profile.get_following.count}} to use the method that excludes the user instance.
-       -->
-        <p style="display:inline;" class="ml-1">Following: {{object.profile.get_following.count}}</p>
+          <div class="main-more">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        -->
+        <div class="row">
+          <div class="col-12">
+            <div class="crd u-clearfix">
+              <span class="crd-heading">Refferals</span>
+              <span class="crd-more">
+                  <svg fill="#777777" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                  </svg>
+                </span>
+              <ul class="crd-list">
+                <li><img src="https://images.unsplash.com/photo-1484502249930-e1da807099a5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c1eb9b1c6be85a0e6fffee82ec8e21b8&auto=format&fit=crop&w=967&q=80" alt="" class="img-fluid" style="height:110px; width:163;"
+                  /></li>
+                <li><img src="https://images.unsplash.com/photo-1505587043598-a6da2ee1da2f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4a2f9e5c9364a880bd4dd482fe6a658a&auto=format&fit=crop&w=1051&q=80" alt="" class="img-fluid" style="height:110px; width:163;"
+                  /></li>
+                <li><img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94b811553f08fbd11a956e1729646589&auto=format&fit=crop&w=1050&q=80" alt="" class="img-fluid" style="height:110px; width:163;"
+                  /></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <a href="{{object.profile.follow_url}}">
-        {% if following %}
-          Unfollow
-        {% else %}
-          Follow
-        {% endif %}
-      </a>
-      <hr>
-    <!-- Follow details -->
-      <h1>Following</h1>
-      <!-- Note that object.profile is the user instance and following is all the other profiles related to our user instance -->
-      {% for user in object.profile.get_following.all  %}
-        <a href="{% url 'accounts:user_details' username=user.username %}">{{user.username}}</a>
-        <br>
-      {% empty %}
-        <h4>Not following anyone currently</h4>
-      {% endfor %}
-      <hr>
 
-      <h1>Followed by</h1>
-      {% for profile in object.followed_by.all  %}
-      <a href="{% url 'accounts:user_details' username=profile.user.username %}">{{profile.user.username}}</a>
-        <br>
-      {% empty %}
-        <h4>No followers currently.</h4>
-      {% endfor %}
-      <hr>
-
-      <h1>Recommended</h1>
-      {% for profile in recommended  %}
-      <a href="{% url 'accounts:user_details' username=profile.user.username %}">{{profile.user.username}}</a>
-        <br>
-      {% empty %}
-        <h4>No followers currently.</h4>
-      {% endfor %}
-      <hr>
     </div>
-    <div class="col-md-9 col-xs-12">
-      <!-- Posts -->
-      <h1>Posts</h1>
-      <!-- Ajax content -->
-      <div id="post-container" data-url='/api/accounts/{{object.username}}/posts/'>
 
-      </div>
-      <!-- Load more note that we actually do not need the href for load more to work. Just the id that jquery will hook onto.-->
-      <a href="#" id="loadMore">Load more Posts</a>
+  </div>
+  <div class="col-lg-7">
+    <!-- Posts -->
+    <h1>Posts</h1>
+    <!-- Ajax content -->
+    <div id="post-container" data-url='/api/accounts/{{object.username}}/posts/'>
 
-      <!-- Django content
+    </div>
+    <!-- Load more note that we actually do not need the href for load more to work. Just the id that jquery will hook onto.-->
+    <a href="#" id="loadMore">Load more Posts</a>
+
+    <!-- Django content
         {% for post in object.post_set.all %}
           <p>- {{post}}</p><br>
         {% endfor %}
       -->
 
-    </div>
   </div>
+</div>
 {% endblock %}

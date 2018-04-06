@@ -348,7 +348,6 @@ div.borderYtoX a:hover:before, div.borderYtoX a:hover:after
   clear: left;
   position: relative;
   max-height: 100px;
-  overflow: hidden;
   transition: all 600ms ease-out;
 }
 

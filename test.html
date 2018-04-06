@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<!-- main post list -->
 {% block content %}
 <!-- Search form -->
   {% include "post_app/search_form.html" %}<br>
@@ -84,7 +84,7 @@
 
         </div>
       </div>
-      
+
       <div class="col-lg-7">
         <!-- form_id = 'post-form' added to connect with ajax request. -->
         {% include "post_app/forms.html" with form=create_form action_url=create_url btn_title='Post' form_id='post-form' %}
