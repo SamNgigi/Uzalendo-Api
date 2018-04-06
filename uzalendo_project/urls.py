@@ -26,6 +26,8 @@ from hashtag_app.views import HashTagView
 from post_app.api.views import SearchPostApiView
 from hashtag_app.api.views import HashtagPostAPIView
 
+from accounts_app.views import UserRegisterView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/$', SearchView.as_view(), name='search'),
@@ -35,8 +37,9 @@ urlpatterns = [
     url(r'^api/hashtag/(?P<hashtag>.*)/$',
         HashtagPostAPIView.as_view(), name='hashtag_api'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
-    # Default django authentication urls has to be above our custom accounts url
+    # Default django authentication urls has to be above custom accounts url
     url(r'^', include('django.contrib.auth.urls')),
+    url(r'^register/$', UserRegisterView.as_view(), name='register'),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
     url(r'^api/search$', SearchPostApiView.as_view(), name='search_api'),
     url(r'^api/accounts/',
