@@ -185,6 +185,8 @@ div.borderYtoX .nav-link:hover:before, div.borderYtoX .nav-link:hover:after
 .search-section{
   display: none;
 }
+
+
 @media screen and (max-width: 790px) {
   .search-snippet {
     display: none

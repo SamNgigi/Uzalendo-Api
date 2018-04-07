@@ -2,15 +2,15 @@
   <div class="navbar borderYtoX">
 
     {% if request.user.is_authenticated %}
-    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/" style="color:inherit;">Home</a>
     <!-- Search form -->
     <div class="search-snippet">
       {% include "post_app/search_form.html" %}
     </div>
 
-    <a class="nav-link" href="{% url 'accounts:user_details' username=request.user %}">Profile</a>
+    <a class="nav-link" href="{% url 'accounts:user_details' username=request.user %}" style="color:inherit;">Profile</a>
 
-    <a class="nav-link" href="/login/">Logout</a>
+    <a class="nav-link" href="/login/" style="color:inherit;">Logout</a>
     {% endif %}
 
   </div>
