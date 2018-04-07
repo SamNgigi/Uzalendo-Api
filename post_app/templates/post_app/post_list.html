@@ -2,7 +2,9 @@
 
 {% block content %}
 <!-- Search form -->
-  {% include "post_app/search_form.html" %}<br>
+  <div class="col-12 search-section">
+    {% include "post_app/search_form.html" %}<br>
+  </div>
   <hr>
 <!-- Post form -->
   {% if not request.GET.q %}
