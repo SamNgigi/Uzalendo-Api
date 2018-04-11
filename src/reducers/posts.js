@@ -11,10 +11,10 @@ export default function posts(state=initialState, action) {
   switch (action.type) {
 
     case 'FETCH_POSTS':
-      return [...state, action.content]
+      return [...state, ...action.posts]
 
     case 'ADD_POST':
-      return [...state, {content:action.content}];
+      return [...state, {content:action.post}];
 
     case 'UPDATE_POST':
 

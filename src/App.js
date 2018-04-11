@@ -7,10 +7,21 @@ import NotFound from "./components/NotFound";
 import './App.css';
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+
+import { createStore, applyMiddleware } from "redux";
+
+/*
+Redux Thunk middleware allows us to write action creators that return a function instead of an action.
+
+The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met.
+
+The inner function recieves the store methods dispatch and getState as parameters.  
+*/
+import thunk from "redux-thunk";
+
 import aminiaApp from "./reducers";
 
-let store = createStore(aminiaApp)
+let store = createStore(aminiaApp, applyMiddleware(thunk));
 
 class App extends Component {
   render() {

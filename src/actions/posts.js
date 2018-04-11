@@ -6,6 +6,25 @@
  We update the actions/index.js file so that we can access all actions in one place.
 */
 
+export const fetchPosts = () => {
+  /*
+  This function will perform an API call to the django
+  application at api/posts/ and dispatch the FETCH_POSTS
+  action. when the response is recieved.
+  */
+  return dispatch => {
+    let headers = {"Content-Type": "application/json"};
+    return fetch("http://127.0.0.1:8000/api/posts/", {headers, })
+      .then(res => res.json())
+      .then(posts => {
+        return dispatch({
+          type: 'FETCH_POSTS',
+          posts
+        })
+      })
+  }
+}
+
 export const addPost = content => {
   return {
     type: 'ADD_POST',

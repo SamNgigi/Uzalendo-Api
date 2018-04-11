@@ -16,6 +16,10 @@ import {
 
 class Aminia extends Component {
 
+  componentDidMount(){
+    this.props.fetchPosts();
+  }
+
   state = {
     content: "",
     updatePostId: null,
@@ -108,6 +112,9 @@ We update the mapDispatchToProp function to use all the actions.
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchPosts: () => {
+      dispatch(posts.fetchPosts());
+    },
     addPost: (content) => {
       dispatch(posts.addPost(content))
     },
