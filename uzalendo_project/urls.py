@@ -28,6 +28,8 @@ from hashtag_app.api.views import HashtagPostAPIView
 
 from accounts_app.views import UserRegisterView
 
+from django.views.generic import TemplateView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/$', SearchView.as_view(), name='search'),
@@ -45,6 +47,8 @@ urlpatterns = [
     url(r'^register/$', UserRegisterView.as_view(), name='register'),
     url(r'^', include('django.contrib.auth.urls'), name='login'),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
+    # React url
+    url(r'.*', TemplateView.as_view(template_name='index.html')),
 ]
 
 if settings.DEBUG:
