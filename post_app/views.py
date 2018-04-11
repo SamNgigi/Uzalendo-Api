@@ -6,7 +6,7 @@ from django.shortcuts import (
 from django.http import HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 
 from django.views import View
@@ -76,7 +76,8 @@ class PostDetailView(DetailView, LoginRequiredMixin):
 
 
 class PostListView(ListView, LoginRequiredMixin):
-    # template_name = 'posts/post_list.html'
+    template_name = 'posts/post_list.html'
+
     # queryset = Post.objects.all()
     # def get_queryset(self, *args, **kwargs):
     #     friends = self.request.user.profile.get_following()
@@ -117,7 +118,9 @@ class PostListView(ListView, LoginRequiredMixin):
         This is generally how our content is got originally
         using the ListView generic class.
         """
-        content = super(PostListView, self).get_context_data(*args, **kwargs)
+
+        content = super(PostListView, self).get_context_data(
+            *args, **kwargs)
         # This renders the create post form on the PostListView view
         content['create_form'] = PostModelForm
         # We redirect to create_post view function once post is submited

@@ -4,6 +4,7 @@
 
 <div class="text-center">
   <h1>Login</h1>
+  <p>Don't have an account? Sign up <a href="/register/">here</a></p>
   {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -26,7 +27,7 @@
 
   <!-- Assumes you setup the password_reset view in your URLconf -->
 
-  <p>
+  <p class="mt-1">
     <a href="{% url 'password_reset' %}">Lost password</a>
   </p>
 </div>
