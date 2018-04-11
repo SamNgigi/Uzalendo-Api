@@ -13,6 +13,7 @@ import {
   Button, FormGroup, Form, Input, Container,
 } from 'reactstrap';
 
+
 class Aminia extends Component {
 
   state = {
@@ -42,12 +43,12 @@ class Aminia extends Component {
 
   render() {
     return (
-      <div>
+      <Container className="text-center">
         <h2>Welcome to Aminia</h2>
         <hr/>
 
-        <p>Naskia kuzitoka!!</p>
-          <Container>
+        <p>Naskia kuzito..naskia kuzitoka</p>
+          <div className="post">
             <Form onSubmit={this.submitPost}>
               <FormGroup>
                 <Input
@@ -56,11 +57,11 @@ class Aminia extends Component {
                   onChange = {(event)=> this.setState({content:event.target.value})}
                   required
                 />
-                <Button outline className="m-1" onClick={this.resetForm} block>Reset</Button>
-                <Button outline className="m-1" type="submit" color="success" block>Save Post</Button>
+                <Button outline className="my-1" onClick={this.resetForm} block>Reset</Button>
+                <Button outline className="my-1" type="submit" color="success" block>Save Post</Button>
               </FormGroup>
             </Form>
-          </Container>
+          </div>
 
 
         <p>
@@ -68,13 +69,13 @@ class Aminia extends Component {
         </p>
         <h3>Posts</h3>
 
-        <table>
+        <table className="text-center">
           <tbody>
             {this.props.posts.map((post, id) => (
               <tr key={`post_${post.id}`}>
                 <td>{post.content}</td>
                 <td>
-                  <Button outline color="prinary" onClick={() => this.selectForEdit(id)}>
+                  <Button outline color="primary" onClick={() => this.selectForEdit(id)}>
                     edit
                   </Button>
                 </td>
@@ -87,7 +88,7 @@ class Aminia extends Component {
             ))}
           </tbody>
           </table>
-      </div>
+      </Container>
     )
   }
 }
