@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'uzalendo_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'uzalendo',
+        'NAME': 'aminia_clone',
         'USER': 'sam',
         'PASSWORD': 'Sam'
     }

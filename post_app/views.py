@@ -40,7 +40,7 @@ users from posting
 """
 
 
-class RePostView(View):
+class RePostView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
         post = get_object_or_404(Post, pk=pk)
         if request.user.is_authenticated():
@@ -56,13 +56,13 @@ class PostUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     # success_url = reverse_lazy("posts:post_list")
 
 
-class PostCreateView(FormUserNeededMixin, CreateView):
+class PostCreateView(FormUserNeededMixin, CreateView, LoginRequiredMixin):
     form_class = PostModelForm
     template_name = 'post_app/post_create.html'
     success_url = reverse_lazy("posts:post_list")
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, LoginRequiredMixin):
     # template_name = 'posts/post_detail.html'
     queryset = Post.objects.all()
     """
@@ -75,25 +75,36 @@ class PostDetailView(DetailView):
     """
 
 
-class PostListView(ListView):
+class PostListView(ListView, LoginRequiredMixin):
     # template_name = 'posts/post_list.html'
     # queryset = Post.objects.all()
-    def get_queryset(self, *args, **kwargs):
-        friends = self.request.user.profile.get_following()
-        friends_post = Post.objects.filter(user__in=friends)
-        my_post = Post.objects.filter(user=self.request.user)
-        queryset = (friends_post | my_post).distinct()
-        # We want to create a request parameter. We test that with this print
-        # It returns an empty query dictionary. i.e <QueryDict:{}>
-        # print(self.request.GET)
-        query = self.request.GET.get("q", None)
-        """
-        Below we allow for a more robust search using the Q
-        lookup that allows us to search multiple models with the
-        '|' indicating the 'or' operation.
+    # def get_queryset(self, *args, **kwargs):
+    #     friends = self.request.user.profile.get_following()
+    #     friends_post = Post.objects.filter(user__in=friends)
+    #     my_post = Post.objects.filter(user=self.request.user)
+    #     queryset = (friends_post | my_post).distinct()
+    #     # We want to create a request parameter. We test
+    #     # that with this print
+    #     # It returns an empty query dictionary. i.e <QueryDict:{}>
+    #     # print(self.request.GET)
+    #     query = self.request.GET.get("q", None)
+    #     """
+    #     Below we allow for a more robust search using the Q
+    #     lookup that allows us to search multiple models with the
+    #     '|' indicating the 'or' operation.
+    #
+    #     We import Q from django.db.models.
+    #     """
+    #     if query is not None:
+    #         queryset = queryset.filter(
+    #             Q(content__icontains=query) |
+    #             Q(user__username__icontains=query)
+    #         )
+    #     return queryset
 
-        We import Q from django.db.models.
-        """
+    def get_queryset(self, *args, **kwargs):
+        queryset = Post.objects.all()
+        query = self.request.GET.get("q", None)
         if query is not None:
             queryset = queryset.filter(
                 Q(content__icontains=query) |

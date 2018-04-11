@@ -68,6 +68,7 @@ class RePostApiView(APIView):
 class PostListApiView(generics.ListAPIView):
     serializer_class = PostModelSerializer
     pagination_class = StandardResultPagination
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_context(self, *args, **kwargs):
         context = super(PostListApiView, self).get_serializer_context(

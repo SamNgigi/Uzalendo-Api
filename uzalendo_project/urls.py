@@ -38,13 +38,13 @@ urlpatterns = [
         HashtagPostAPIView.as_view(), name='hashtag_api'),
     url(r'^posts/', include('post_app.urls', namespace='posts')),
     # Default django authentication urls has to be above custom accounts url
-    url(r'^', include('django.contrib.auth.urls')),
-    url(r'^register/$', UserRegisterView.as_view(), name='register'),
-    url(r'^', include('accounts_app.urls', namespace='accounts')),
     url(r'^api/search$', SearchPostApiView.as_view(), name='search_api'),
     url(r'^api/accounts/',
         include('accounts_app.api.urls', namespace='accounts_api')),
     url(r'^api/posts/', include('post_app.api.urls', namespace='posts_api')),
+    url(r'^register/$', UserRegisterView.as_view(), name='register'),
+    url(r'^', include('django.contrib.auth.urls'), name='login'),
+    url(r'^', include('accounts_app.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:
