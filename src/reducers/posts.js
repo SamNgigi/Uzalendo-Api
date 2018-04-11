@@ -21,8 +21,8 @@ export default function posts(state=initialState, action) {
     // Here we do not update a state directly but we return a new state to replace the current state.
 
       let postToUpdate = postsList[action.id]
-      postToUpdate.text = action.ext
-      postsList.splice(action.index, 1, postToUpdate)
+      postToUpdate.text = action.text
+      postsList.splice(action.id, 1, postToUpdate)
       return postsList;
 
     case 'DELETE_POST':

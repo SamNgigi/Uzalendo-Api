@@ -24,7 +24,7 @@ class Aminia extends Component {
   submitPost = (event) => {
     event.preventDefault();
     if (this.state.updatePostId === null){
-      this.props.addPosts(this.state.text);
+      this.props.addPost(this.state.text);
     } else {
       this.props.updatePost(this.state.updatePostId, this.state.text)
     }
@@ -61,7 +61,7 @@ class Aminia extends Component {
               <tr key={`post_${post.id}`}>
                 <td>{post.text}</td>
                 <td>
-                  <button onClick={() => this.props.selectForEdit(id)}>
+                  <button onClick={() => this.selectForEdit(id)}>
                     edit
                   </button>
                 </td>
@@ -94,11 +94,11 @@ We update the mapDispatchToProp function to use all the actions.
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPosts: (text) => {
-      dispatch(posts.addPosts(text))
+    addPost: (text) => {
+      dispatch(posts.addPost(text))
     },
     updatePost: (id, text) => {
-      dispatch(posts.addPosts(id, text))
+      dispatch(posts.updatePost(id, text))
     },
     deletePost: (id) => {
       dispatch(posts.deletePost(id))
