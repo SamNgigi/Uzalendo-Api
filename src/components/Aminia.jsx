@@ -15,9 +15,9 @@ class Aminia extends Component {
         <h3>Posts</h3>
         <table>
           <tbody>
-            {this.props.posts.map((post, id) => (
-              <tr key={`post_${id}`}>
-                <td>{post.text}</td>
+            {this.props.posts.map((response, id) => (
+              <tr key={`response_${id}`}>
+                <td>{response.text}</td>
                 <td><button>edit</button></td>
                 <td><button>delete</button></td>
               </tr>
