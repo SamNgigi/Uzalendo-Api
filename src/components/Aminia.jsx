@@ -8,25 +8,25 @@ import { posts } from "../actions";
 class Aminia extends Component {
 
   state = {
-    text: "",
+    content: "",
     updatePostId: null,
   }
 
   resetForm = () => {
-    this.setState({text:"", updatePostId:null});
+    this.setState({content:"", updatePostId:null});
   }
 
   selectForEdit = (id) => {
     let post = this.props.posts[id];
-    this.setState({text: post.text, updatePostId:id});
+    this.setState({content: post.content, updatePostId:id});
   }
 
   submitPost = (event) => {
     event.preventDefault();
     if (this.state.updatePostId === null){
-      this.props.addPost(this.state.text);
+      this.props.addPost(this.state.content);
     } else {
-      this.props.updatePost(this.state.updatePostId, this.state.text)
+      this.props.updatePost(this.state.updatePostId, this.state.content)
     }
     this.resetForm();
   }
@@ -41,9 +41,9 @@ class Aminia extends Component {
         <p>Naskia kuzitoka!!</p>
           <form onSubmit={this.submitPost}>
             <input
-              value={this.state.text}
+              value={this.state.content}
               placeholder="Enter post here..."
-              onChange = {(event)=> this.setState({text:event.target.value})}
+              onChange = {(event)=> this.setState({content:event.target.value})}
               required
             />
             <button onClick={this.resetForm}>Reset</button>
@@ -59,7 +59,7 @@ class Aminia extends Component {
           <tbody>
             {this.props.posts.map((post, id) => (
               <tr key={`post_${post.id}`}>
-                <td>{post.text}</td>
+                <td>{post.content}</td>
                 <td>
                   <button onClick={() => this.selectForEdit(id)}>
                     edit
@@ -94,11 +94,11 @@ We update the mapDispatchToProp function to use all the actions.
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (text) => {
-      dispatch(posts.addPost(text))
+    addPost: (content) => {
+      dispatch(posts.addPost(content))
     },
-    updatePost: (id, text) => {
-      dispatch(posts.updatePost(id, text))
+    updatePost: (id, content) => {
+      dispatch(posts.updatePost(id, content))
     },
     deletePost: (id) => {
       dispatch(posts.deletePost(id))

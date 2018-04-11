@@ -6,18 +6,18 @@
  We update the actions/index.js file so that we can access all actions in one place.
 */
 
-export const addPost = text => {
+export const addPost = content => {
   return {
     type: 'ADD_POST',
-    text
+    content
   }
 }
 
-export const updatePost = (id, text) => {
+export const updatePost = (id, content) => {
   return {
     type: 'UPDATE_POST',
     id,
-    text
+    content
   }
 }
 

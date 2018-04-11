@@ -11,17 +11,17 @@ export default function posts(state=initialState, action) {
   switch (action.type) {
 
     case 'FETCH_POSTS':
-      return [...state, action.text]
+      return [...state, action.content]
 
     case 'ADD_POST':
-      return [...state, {text:action.text}];
+      return [...state, {content:action.content}];
 
     case 'UPDATE_POST':
 
     // Here we do not update a state directly but we return a new state to replace the current state.
 
       let postToUpdate = postsList[action.id]
-      postToUpdate.text = action.text
+      postToUpdate.content = action.content
       postsList.splice(action.id, 1, postToUpdate)
       return postsList;
 
