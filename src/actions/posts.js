@@ -1,22 +1,30 @@
-export const addPosts = content => {
+/*
+ Each of the below functions returns an object with a type property by which the reducer determines how the state is to be updated.
+
+ Besides type these payloads can have any property as values which can later be used inside the reducer function while modifying the state.
+
+ We update the actions/index.js file so that we can access all actions in one place.
+*/
+
+export const addPosts = text => {
   return {
-    type: 'ADD_NOTE',
-    content
+    type: 'ADD_POST',
+    text
   }
 }
 
-export const addPosts = (id, content) => {
+export const updatePosts = (id, text) => {
   return {
-    type: 'UPDATE_NOTE',
+    type: 'UPDATE_POST',
     id,
-    content
+    text
   }
 }
 
-export const addPosts = (id, content) => {
+export const deletePosts = (id, text) => {
   return {
-    type: 'DELETE_NOTE',
+    type: 'DELETE_POST',
     id,
-    content
+    text
   }
 }
