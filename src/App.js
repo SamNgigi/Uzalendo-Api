@@ -15,7 +15,7 @@ Redux Thunk middleware allows us to write action creators that return a function
 
 The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met.
 
-The inner function recieves the store methods dispatch and getState as parameters.  
+The inner function recieves the store methods dispatch and getState as parameters.
 */
 import thunk from "redux-thunk";
 

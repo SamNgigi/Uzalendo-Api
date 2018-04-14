@@ -11,7 +11,8 @@ export default function posts(state=initialState, action) {
   switch (action.type) {
 
     case 'FETCH_POSTS':
-      return [...state, ...action.posts]
+
+      return [...state, ...action.posts.results]
 
     case 'ADD_POST':
       return [...state, {content:action.post}];
