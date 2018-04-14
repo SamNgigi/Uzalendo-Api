@@ -68,7 +68,7 @@ class RePostApiView(APIView):
 class PostListApiView(generics.ListAPIView):
     serializer_class = PostModelSerializer
     pagination_class = StandardResultPagination
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_context(self, *args, **kwargs):
         context = super(PostListApiView, self).get_serializer_context(
@@ -77,18 +77,7 @@ class PostListApiView(generics.ListAPIView):
         return context
 
     def get_queryset(self, *args, **kwargs):
-        # We want to display a particular user's post only
-        requested_user = self.kwargs.get("username")
-        if requested_user:
-            # Represents user's post
-            queryset = Post.objects.filter(user__username=requested_user)
-        else:
-            friends = self.request.user.profile.get_following()
-            friends_post = Post.objects.filter(user__in=friends)
-            my_post = Post.objects.filter(user=self.request.user)
-            # distinct makes sure that there are no duplicates.
-            queryset = (friends_post | my_post).distinct()
-            # print(self.request.GET)
+        queryset = Post.objects.all()
         query = self.request.GET.get("q", None)
         if query is not None:
             queryset = queryset.filter(
@@ -96,6 +85,27 @@ class PostListApiView(generics.ListAPIView):
                 Q(user__username__icontains=query)
             )
         return queryset
+
+    # def get_queryset(self, *args, **kwargs):
+    #     # We want to display a particular user's post only
+    #     requested_user = self.kwargs.get("username")
+    #     if requested_user:
+    #         # Represents user's post
+    #         queryset = Post.objects.filter(user__username=requested_user)
+    #     else:
+    #         friends = self.request.user.profile.get_following()
+    #         friends_post = Post.objects.filter(user__in=friends)
+    #         my_post = Post.objects.filter(user=self.request.user)
+    #         # distinct makes sure that there are no duplicates.
+    #         queryset = (friends_post | my_post).distinct()
+    #         # print(self.request.GET)
+    #     query = self.request.GET.get("q", None)
+    #     if query is not None:
+    #         queryset = queryset.filter(
+    #             Q(content__icontains=query) |
+    #             Q(user__username__icontains=query)
+    #         )
+    #     return queryset
 
 
 class PostCreateApiView(generics.CreateAPIView):
