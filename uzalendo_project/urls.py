@@ -47,6 +47,8 @@ urlpatterns = [
     url(r'^register/$', UserRegisterView.as_view(), name='register'),
     url(r'^', include('django.contrib.auth.urls'), name='login'),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
+    # Api Auth URLs
+    url(r'^api/auth/', include('knox.urls')),
     # React url
     url(r'.*', TemplateView.as_view(template_name='index.html')),
 ]

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'knox',
     'hashtag_app',
     'accounts_app',
     'post_app',
@@ -151,3 +152,15 @@ CORS_ORIGIN_ALLOW_ALL = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
+
+# Rest Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
+"""
+DRF ships with a built-in TokenAuthentication feature, but
+it is not ideal for users facing SPAs because it lack basic
+features.
+Instead, we will use django-rest-knox, It is similar to
+DRF's TokenAuth but much better and robust.
+"""
