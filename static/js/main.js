@@ -265,7 +265,7 @@ function loadPosts(postContainerId) {
     })
 
     // Char counting
-    var charsStart = 30;
+    var charsStart = 100;
     var charsCounter = 0;
     // Appending characters left counter to our create post form
     $("#post-form").append(

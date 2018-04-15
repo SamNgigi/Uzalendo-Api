@@ -23,7 +23,7 @@ User = get_user_model()
 class UserRegisterView(FormView):
     template_name = 'registration/register.html'
     form_class = UserRegisterForm
-    success_url = '/login'
+    success_url = '/login/'
 
     def form_valid(self, form):
         username = form.cleaned_data.get("username")

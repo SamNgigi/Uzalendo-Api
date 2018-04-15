@@ -70,7 +70,7 @@ class Post(models.Model):
     # Supposedly a much more robust way if defining the user model.
     parent = models.ForeignKey("self", blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    content = models.CharField(max_length=30, validators=[validate_content])
+    content = models.CharField(max_length=100, validators=[validate_content])
     likes = models.ManyToManyField(
         settings.AUTH_USER_MODEL, blank=True, related_name='liked')
     timestamp = models.DateTimeField(auto_now_add=True)
