@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-
+from django.http import Http404
 # from django.http import HttpResponseRedirect
 from django.shortcuts import (
     # render,
@@ -19,6 +19,21 @@ from .models import UserProfile
 
 User = get_user_model()
 
+
+def error_404(request):
+    # data = {}
+    return redirect('/')
+
+
+# def error_403(request):
+#     data = {}
+#     return render(request, 'errors/error_403.html', data)
+#
+#
+# def error_500(request):
+#     data = {}
+#     return render(request, 'errors/error_500.html', data)
+#
 
 class UserRegisterView(FormView):
     template_name = 'registration/register.html'

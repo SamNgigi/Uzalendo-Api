@@ -30,6 +30,11 @@ from accounts_app.views import UserRegisterView
 
 from django.views.generic import TemplateView
 
+from django.conf.urls import handler404
+
+from accounts_app import views as accounts_views
+from post_app import views as post_views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/$', SearchView.as_view(), name='search'),
@@ -48,8 +53,11 @@ urlpatterns = [
     url(r'^', include('django.contrib.auth.urls'), name='login'),
     url(r'^', include('accounts_app.urls', namespace='accounts')),
     # React url
-    url(r'/.*', TemplateView.as_view(template_name='index.html')),
+    url(r'.*', TemplateView.as_view(template_name='index.html')),
 ]
+
+# handler404 = post_views.error_404
+handler404 = accounts_views.error_404
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,

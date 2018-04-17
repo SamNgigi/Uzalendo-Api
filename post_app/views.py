@@ -1,12 +1,12 @@
 from django.shortcuts import (
-    # render,
+    render,
     # redirect,
     get_object_or_404
 )
 from django.http import HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.db.models import Q
 
 from django.views import View
@@ -38,6 +38,21 @@ For example in the PostCreateView class we add our own custom
 FormUserNeededMixin that allows us to prohibit unauthenticated
 users from posting
 """
+
+
+def error_404(request):
+    data = {}
+    return render(request, 'errors/error_404.html', data)
+
+
+def error_403(request):
+    data = {}
+    return render(request, 'errors/error_403.html', data)
+
+
+def error_500(request):
+    data = {}
+    return render(request, 'errors/error_500.html', data)
 
 
 class RePostView(View, LoginRequiredMixin):
