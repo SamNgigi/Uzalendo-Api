@@ -54,19 +54,23 @@ class UserDetailView(DetailView):
     template_name = 'accounts/user_detail.html'
     queryset = User.objects.all()
 
-    def get_object(self):
-        return get_object_or_404(
-            User, username__iexact=self.kwargs.get("username")
-        )
+    if queryset:
+        def get_object(self):
+            return get_object_or_404(
+                User, username__iexact=self.kwargs.get("username")
+            )
 
-    def get_context_data(self, *args, **kwargs):
-        content = super(UserDetailView, self).get_context_data(*args, **kwargs)
-        following = UserProfile.objects.is_following(
-            self.request.user, self.get_object())
-        content['following'] = following
-        content['recommended'] = UserProfile.objects.recommended(
-            self.request.user)
-        return content
+        def get_context_data(self, *args, **kwargs):
+            content = super(UserDetailView, self).get_context_data(
+                *args, **kwargs)
+            following = UserProfile.objects.is_following(
+                self.request.user, self.get_object())
+            content['following'] = following
+            content['recommended'] = UserProfile.objects.recommended(
+                self.request.user)
+            return content
+    else:
+        redirect('/')
 
 
 class UserFollowView(View):
